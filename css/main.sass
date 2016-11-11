@@ -4,6 +4,7 @@
 
 $primaryColor: #652d90
 $secondaryColor: #361d51
+$primaryFont: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
 
 *
   -moz-box-sizing: border-box
@@ -11,7 +12,7 @@ $secondaryColor: #361d51
   box-sizing: border-box
 
 html
-  font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+  font-family: $primaryFont
 
 main
   max-width: 960px
@@ -62,12 +63,16 @@ b
       color: #fff
   i
     padding: 0 0.5em
+.filters-stars
+  font-size: 0
+  i
+    font-size: 12px
 
 .search-input
   width: 100%
   padding: 0.5em 1em 0.5em 3em
   border: 2px solid #ddd
-  font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+  font-family: $primaryFont
 
 .search-wrapper
   position: relative
@@ -82,7 +87,7 @@ b
 .search-actions
   float: right
   margin-top: -0.4em
-  li
+  button
     display: inline-block
     border: 1px solid $primaryColor
     color: $primaryColor
@@ -91,9 +96,16 @@ b
     padding: 0.9em 1.5em 0.7em 1.5em
     font-size: 0.65em
     cursor: pointer
+    margin-top: -0.3em
+    font-family: $primaryFont
+    &:hover
+      background: $secondaryColor
+      border: 1px solid $secondaryColor
+      color: #fff
   .action-search
     background: $primaryColor
     color: #fff
+
 
 a, a:visited
   color: #000

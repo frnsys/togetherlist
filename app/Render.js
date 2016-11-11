@@ -41,7 +41,7 @@ const render = {
   rating: function(rating) {
     var els = [],
         r = rating;
-    if (!rating) {
+    if (rating < 0) {
       return 'N/A';
     } else {
       _.each(_.range(Math.floor(rating)), () => {

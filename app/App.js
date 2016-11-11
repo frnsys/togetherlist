@@ -10,7 +10,16 @@ const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
 
 class App {
   constructor() {
-    this.flags = [];
+    this.resetFilters();
+  }
+
+  resetFilters() {
+    this.filters = {
+      flags: [],
+      rating: -1,
+      categories: [],
+      services: []
+    };
   }
 
   loadSpreadsheet(num, onLoad) {
@@ -35,6 +44,8 @@ class App {
         obj.accredited = util.parseBool(obj.accreditedbusinessyn);
         obj.categories = _.compact([obj.category1, obj.category2, obj.category3]);
 
+        console.log(obj.categories);
+
         return obj;
       }).compact().value();
       onLoad();
@@ -45,7 +56,8 @@ class App {
     this.loadSpreadsheet(2, rows => {
       this.categories = _.map(rows, row => {
         var cat = util.parseGSXRow(row).category;
-        $('.filters-categories').append(`<li>${cat.replace(' ', '')}</li>`);
+        $('.filters-categories').append(
+          `<li data-category="${cat}">${util.slugify(cat)}</li>`);
         return cat;
       });
     });
@@ -54,47 +66,73 @@ class App {
   loadServices() {
     this.loadSpreadsheet(3, rows => {
       this.services = _.map(rows, row => {
-        var service = util.parseGSXRow(row).service,
-            serviceSlug = service.replace(' ', '').replace('-', '');
-        $('.filters-services').append(`<li>${serviceSlug}</li>`);
+        var service = util.parseGSXRow(row).service;
+        $('.filters-services').append(
+          `<li data-service="${service}">${util.slugify(service)}</li>`);
         return service;
       });
     });
   }
 
   bindRatingFilter() {
-    var selector = '.charitynavigatorscore-filter i';
-    $(selector).on('mouseenter', ev => {
+    $('.filters-rating i').on('mouseenter', ev => {
       var idx = $(ev.target).index();
-      $(selector).each(function(i) {
-        if (i <= idx) {
-          $(this).removeClass('fa-circle-o').addClass('fa-star');
-        } else {
-          $(this).removeClass('fa-star').addClass('fa-circle-o');
-        }
-      });
+      this.renderRatingFilter(idx);
     }).on('mouseleave', ev => {
-      $(selector).removeClass('fa-star').addClass('fa-circle-o');
+      this.renderRatingFilter(this.filters.rating);
+    }).on('click', ev => {
+      var idx = $(ev.target).index();
+      this.filters.rating = idx+1;
+      this.renderResults();
+    });
+
+    $('.filters-rating-reset').on('mouseenter', ev => {
+      this.renderRatingFilter(-1);
+    }).on('mouseleave', ev => {
+      this.renderRatingFilter(this.filters.rating);
+    }).on('click', ev => {
+      this.filters.rating = -1;
+      this.renderResults();
     });
   }
 
-  bindFlagFilters() {
-    $('.filters-flags li').on('click', ev => {
+  renderRatingFilter(n_stars) {
+    var selector = '.filters-rating i';
+    $(selector).each(function(i) {
+      if (i <= n_stars) {
+        $(this).removeClass('fa-circle-o').addClass('fa-star');
+      } else {
+        $(this).removeClass('fa-star').addClass('fa-circle-o');
+      }
+    });
+  }
+
+  bindFilter(sel, dataName, filterType) {
+    $(sel).on('click', 'li', ev => {
       var el = $(ev.target),
-          flag = el.data('flag');
+          filter = el.data(dataName);
       el.toggleClass('selected');
       if (el.hasClass('selected')) {
-        this.flags.push(flag);
+        this.filters[filterType].push(filter);
       } else {
-        this.flags = _.without(this.flags, flag);
+        this.filters[filterType] = _.without(this.filters[filterType], filter);
       }
       this.renderResults();
     });
   }
 
+  bindClearFilters() {
+    $('.action-clear').on('click', ev => {
+      this.resetFilters();
+      this.renderResults();
+      this.renderRatingFilter();
+      $('.selected').removeClass('selected');
+    });
+  }
+
   renderResults() {
     var html = [],
-        results = search.filter(this.orgs, this.flags);
+        results = search.filter(this.orgs, this.filters);
     _.each(results, result => {
       html.push(render.result(result));
     });
@@ -108,8 +146,11 @@ class App {
     this.loadCategories();
     this.loadServices();
 
+    this.bindClearFilters();
     this.bindRatingFilter();
-    this.bindFlagFilters();
+    this.bindFilter('.filters-flags', 'flag', 'flags');
+    this.bindFilter('.filters-categories', 'category', 'categories');
+    this.bindFilter('.filters-services', 'service', 'services');
   }
 }
 

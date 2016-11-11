@@ -9,6 +9,10 @@ const util = {
     return str;
   },
 
+  slugify: function(str) {
+    return str.replace(' ', '').replace('-', '');
+  },
+
   parseGSXRow: function(row) {
     // parse a GSX (Google Spreadsheet)
     // row into something nicer
@@ -34,7 +38,7 @@ const util = {
     } else {
       rating = parseInt(str);
     }
-    return isNaN(rating) ? false : rating;
+    return isNaN(rating) ? -1 : rating;
   }
 };
 
