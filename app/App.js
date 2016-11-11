@@ -43,6 +43,7 @@ class App {
         obj.deductible = util.parseBool(obj.taxdeductibleyn);
         obj.accredited = util.parseBool(obj.accreditedbusinessyn);
         obj.categories = _.compact([obj.category1, obj.category2, obj.category3]);
+        obj.services = _.compact([obj.filter1, obj.filter2, obj.filter3]);
         obj.description = obj.description100characters;
 
         return obj;
