@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TogetherList</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <main>
+        <header>
+            <h1><img src="assets/logo.svg"><b>together</b>list</h1>
+        </header>
+        <section>
+            <ul class="filters filters-categories"></ul>
+            <ul class="filters-group">
+                <ul class="filters filters-flags">
+                    <li data-flag="donatelink">DonateNow</li>
+                    <li data-flag="volunteerlink">VolunteerNow</li>
+                </ul>
+                <ul class="filters filters-flags">
+                    <li data-flag="deductible">TaxDeductible</li>
+                    <li data-flag="accredited">AccreditedBusiness</li>
+                </ul>
+                <ul class="filters charitynavigatorscore-filter">
+                    <li>
+                        CharityNavigatorScore
+                        <i class="fa fa-circle-o"></i>
+                        <i class="fa fa-circle-o"></i>
+                        <i class="fa fa-circle-o"></i>
+                        <i class="fa fa-circle-o"></i>
+                        <i class="fa fa-circle-o"></i>
+                    </li>
+                </ul>
+            </ul>
+            <ul class="filters filters-services"></ul>
+        </section>
+        <section class="search">
+            <div class="info">
+                <a href="#">Add an organization</a> to our database or <a href="#">get in touch</a>
+                <ul class="search-actions">
+                    <li class="action-clear">Clear</li>
+                    <li class="action-search">Search</li>
+                </ul>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" name="search" class="search-input" placeholder="e.g. lgbt non-profits in the midwest">
+            </div>
+        </section>
+        <section class="results">
+            <ul></ul>
+        </section>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+

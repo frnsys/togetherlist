@@ -1,0 +1,215 @@
+@import reset
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700')
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+
+$primaryColor: #652d90
+$secondaryColor: #361d51
+
+*
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+
+html
+  font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+
+main
+  max-width: 960px
+  margin: 2em auto
+
+h1
+  font-size: 2em
+  color: $primaryColor
+
+b
+  font-weight: bold
+
+.info
+  text-align: center
+  padding: 1em 0 0.5em 0
+  margin: 0 0 1em 0
+  a, a:visited
+    font-weight: bold
+
+.filters-group
+  display: flex
+  .filters
+    flex: 1
+    margin-right: 0.5em
+    &:last-child
+      margin-right: 0
+
+.filters
+  display: flex
+  margin: 0.5em 0
+  li
+    flex: 1
+    padding: 1.2em 1em 1em 1em
+    font-size: 0.65em
+    text-transform: uppercase
+    border: 1px solid #aaa
+    border-left: none
+    text-align: center
+    color: #777
+    cursor: pointer
+    &:first-child
+      border-left: 1px solid #aaa
+    &:hover
+      background: $secondaryColor
+      color: #fff
+    &.selected
+      background: $primaryColor
+      color: #fff
+  i
+    padding: 0 0.5em
+
+.search-input
+  width: 100%
+  padding: 0.5em 1em 0.5em 3em
+  border: 2px solid #ddd
+  font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+
+.search-wrapper
+  position: relative
+  &:before
+    font-family: 'FontAwesome'
+    color: #aaa
+    position: absolute
+    top: 0.5em
+    left: 1em
+    content: "\f002"
+
+.search-actions
+  float: right
+  margin-top: -0.4em
+  li
+    display: inline-block
+    border: 1px solid $primaryColor
+    color: $primaryColor
+    text-align: center
+    text-transform: uppercase
+    padding: 0.9em 1.5em 0.7em 1.5em
+    font-size: 0.65em
+    cursor: pointer
+  .action-search
+    background: $primaryColor
+    color: #fff
+
+a, a:visited
+  color: #000
+  &:hover
+    color: $primaryColor
+
+.results
+  ul
+    text-align: justify
+
+.result
+  display: inline-block
+  width: 33%
+  background: $primaryColor
+  text-align: center
+  color: #fff
+  padding: 4em 1em
+  margin: 1em 0 0 0
+  cursor: pointer
+  position: relative
+  height: 16em
+  overflow: hidden
+  a, a:visited
+    color: #fff
+    &:hover
+      color: $primaryColor
+  h2
+    font-size: 1.8em
+    font-weight: bold
+    margin: 0 0 0.5em 0
+  .result-actions
+    font-size: 1.4em
+    font-weight: bold
+    text-transform: uppercase
+    margin: 0 0 0.4em 0
+  .result-info
+    display: none
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: rgba(0,0,0,0.9)
+    color: #fff
+    padding: 1.5em
+    text-align: left
+  &:hover
+    .result-info
+      display: block
+
+.result-stats
+  position: absolute
+  bottom: 1.5em
+  left: 1.5em
+  right: 1.5em
+  display: flex
+  li
+    flex: 1
+    margin-right: 0.5em
+    &:last-child
+      margin-right: 0
+    &:first-child
+      flex: 1.5
+  i
+    font-size: 2em
+  h6
+    text-transform: uppercase
+    font-weight: bold
+    font-size: 0.7em
+    margin: 0 0 1em 0
+  .stars i
+    font-size: 1em
+  h1
+    color: #fff
+    display: inline-block
+
+.result-meta
+  font-size: 0.7em
+  text-transform: uppercase
+  line-height: 1.5
+  h5:first-child
+    font-weight: bold
+
+.result-description
+  font-size: 0.9em
+
+
+@keyframes checkHighlight
+  0%
+    color: #fff
+  100%
+    color: #239541
+
+@keyframes starHighlight
+  0%
+    color: #fff
+  100%
+    color: #efef4c
+
+.fa-check-circle
+  animation-name: checkHighlight
+  animation-duration: 0.2s
+  animation-timing-function: linear
+  animation-iteration-count: 1
+  animation-fill-mode: forwards
+
+.stars
+  animation-name: starHighlight
+  animation-duration: 0.2s
+  animation-timing-function: linear
+  animation-iteration-count: 1
+  animation-fill-mode: forwards
+
+header
+  margin: 0 0 1em 0
+  img
+    width: 1em
+    margin-right: 0.3em
+    vertical-align: top
