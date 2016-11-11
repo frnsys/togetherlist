@@ -7,7 +7,7 @@ const render = {
     return `
       <li class="result">
           <h2>${util.truncate(data.name, 30)}</h2>
-          <p class="result-description">${util.truncate(data.description100characters, 100)}</p>
+          <p class="result-description">${util.truncate(data.description, 100)}</p>
           <div class="result-info">
               <div class="result-actions">
                   ${data.donatelink ? `<a href="${data.donatelink}">Donate</a>` : ''}

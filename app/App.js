@@ -43,8 +43,7 @@ class App {
         obj.deductible = util.parseBool(obj.taxdeductibleyn);
         obj.accredited = util.parseBool(obj.accreditedbusinessyn);
         obj.categories = _.compact([obj.category1, obj.category2, obj.category3]);
-
-        console.log(obj.categories);
+        obj.description = obj.description100characters;
 
         return obj;
       }).compact().value();
@@ -121,18 +120,39 @@ class App {
     });
   }
 
-  bindClearFilters() {
+  bindClear() {
     $('.action-clear').on('click', ev => {
+      this.results = this.orgs;
       this.resetFilters();
       this.renderResults();
       this.renderRatingFilter();
       $('.selected').removeClass('selected');
+      $('input[name=search]').val('');
     });
+  }
+
+  bindSearch() {
+    $('input[name=search]').on('keydown', ev => {
+      if (ev.keyCode === 13) { // enter
+        this.search();
+      }
+    });
+    $('.action-search').on('click', this.search.bind(this));
+  }
+
+  search() {
+    var query = $('input[name=search]').val();
+    if (query) {
+      this.results = _.map(search.search(query), res => {
+        return this.orgs[res.ref];
+      });
+      this.renderResults();
+    }
   }
 
   renderResults() {
     var html = [],
-        results = search.filter(this.orgs, this.filters);
+        results = search.filter(this.results, this.filters);
     _.each(results, result => {
       html.push(render.result(result));
     });
@@ -141,12 +161,15 @@ class App {
 
   run() {
     this.loadOrgs(() => {
+      this.results = this.orgs;
       this.renderResults();
+      search.index(this.orgs);
     });
     this.loadCategories();
     this.loadServices();
 
-    this.bindClearFilters();
+    this.bindSearch();
+    this.bindClear();
     this.bindRatingFilter();
     this.bindFilter('.filters-flags', 'flag', 'flags');
     this.bindFilter('.filters-categories', 'category', 'categories');
