@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "start": "webpack-dev-server --colors --progress --port 8081",
-    "build": "webpack --colors --progress",
+    "build": "sass css/main.sass:css/main.css; webpack --colors --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
