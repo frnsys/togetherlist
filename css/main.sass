@@ -25,6 +25,7 @@ main
   max-width: 960px
   margin: 0 auto
   clear: both
+  padding: 0 2em
 
 b
   font-weight: bold
@@ -54,9 +55,11 @@ b
   i
     font-size: 12px
 .filters-categories
+  flex-wrap: wrap
   button
     text-transform: uppercase
-    font-size: 0.85em
+    font-size: 0.80em
+    padding: 1.2em 0.3em 1em 0.3em
     border-bottom: 2px solid rgba(0,0,0,0)
     white-space: nowrap
     &:hover
@@ -115,6 +118,10 @@ header
   background-size: cover
   background-position: top center
   padding: 1em
+  h1
+    a, a:visited, a:hover
+      color: #fff !important
+      text-decoration: none
   .logo
     float: left
     font-size: 1.8em
@@ -216,3 +223,4 @@ footer
   text-align: center
 
 @import result
+@import about
