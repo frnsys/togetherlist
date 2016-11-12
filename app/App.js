@@ -196,6 +196,8 @@ class App {
       this.renderSearchNames();
     } else {
       $('.search-dropdown').hide();
+      this.results = this.orgs;
+      this.renderResults();
     }
   }
 
