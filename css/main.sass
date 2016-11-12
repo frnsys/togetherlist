@@ -73,9 +73,7 @@ b
   button
     background: #fff
     color: #343434
-    margin-right: 0.5em
-    &:last-child
-      margin-right: 0
+    margin: 0 0.25em 0.5em 0.25em
     &:hover
       background: $secondaryColor
       color: #fff
@@ -84,6 +82,8 @@ b
       color: #fff
     &:disabled
       opacity: 0.6
+  .filters
+    flex-wrap: wrap
 
 .search-input
   width: 100%
@@ -221,6 +221,26 @@ footer
 .filters-state
   margin: 1em 0
   text-align: center
+
+@media screen and (max-width: 490px)
+  .header-bar
+    text-align: center
+    > *
+      display: block
+      float: none !important
+      text-align: center
+    .get-involved li
+      float: none
+      display: inline-block
+    h1
+      margin-bottom: 1em
+
+@media screen and (max-width: 820px)
+  footer
+    display: block
+    text-align: center
+    .footer-right
+      text-align: center
 
 @import result
 @import about
