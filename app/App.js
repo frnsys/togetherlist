@@ -19,6 +19,7 @@ class App {
       rating: -1,
       categories: [],
       services: [],
+      state: false,
       sortByRating: false
     };
   }
@@ -148,6 +149,14 @@ class App {
     });
   }
 
+  bindStateFilter() {
+    $('.results').on('click', '.result-state', ev => {
+      var state = $(ev.target).data('state');
+      this.filters.state = state;
+      this.renderResults();
+    });
+  }
+
   bindSearchDropdown() {
     $('.search-dropdown').on('click', 'li', ev => {
       var name = $(ev.target).data('name');
@@ -192,6 +201,9 @@ class App {
       _.each(results, result => {
         html.push(render.result(result));
       });
+      if (this.filters.state) {
+        html = [`<h2 class="filters-state">Showing organizations for <b>${this.filters.state}</b></h2>`].concat(html);
+      }
       $('.results > ul').html(html.join(''));
     } else {
       $('.results > ul').html('<h1 class="no-results">No results</h1>');
@@ -214,6 +226,7 @@ class App {
     this.bindRatingFilter();
     this.bindFiltersToggle();
     this.bindSearchDropdown();
+    this.bindStateFilter();
     this.bindFilter('.filters-flags', 'flag', 'flags');
     this.bindFilter('.filters-categories', 'category', 'categories');
     this.bindFilter('.filters-services', 'service', 'services');

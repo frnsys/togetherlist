@@ -13,7 +13,7 @@ const render = {
               <h3><a href="${data.website ? data.website : '#'}">${data.name}</a> welcomes ${util.joinAnd(_.map(data.services, s => `<span class="result-service">${s.toLowerCase().replace('esl', 'ESL')}</span>`))}${data.additionalServices.length > 0 ? ' help' : ''}.</h3>
               <div class="result-meta">
                 <div class="result-meta-info">
-                  ${data.state ? `<h5><span class="result-meta-lead">Based in</span> ${data.state}</h5>` : ''}
+                  ${data.state ? `<h5><span class="result-meta-lead">Based in </span><span class="result-state" data-state="${data.state}">${data.state}</span></h5>` : ''}
                   <h5>${data.categories.join(', ')}</h5>
                 </div>
                 <div class="result-meta-share">

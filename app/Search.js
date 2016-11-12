@@ -27,7 +27,8 @@ const search = {
       return item.rating >= filters.rating &&
         _.every(filters.categories, cat => _.contains(item.categories, cat)) &&
         _.every(filters.services, service => _.contains(item.services, service)) &&
-        _.every(filters.flags, flag => item[flag]);
+        _.every(filters.flags, flag => item[flag]) &&
+        (!filters.state || item.state == filters.state);
     }).sortBy((item, i) => {
       return filters.sortByRating ? item.rating * -1 : i;
     }).value();
