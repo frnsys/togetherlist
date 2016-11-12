@@ -43,6 +43,10 @@ const util = {
       rating = parseInt(str);
     }
     return isNaN(rating) ? -1 : rating;
+  },
+
+  parseNumber: function(str) {
+    return str.replace(/\D+/g, '');
   }
 };
 

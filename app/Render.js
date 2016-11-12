@@ -1,7 +1,6 @@
 import _ from 'underscore';
 import util from './Util';
 
-
 const render = {
   result: function(data) {
     return `
@@ -18,15 +17,16 @@ const render = {
                   <h5>${data.categories.join(', ')}</h5>
                 </div>
                 <div class="result-meta-share">
-                  <i class="fa fa-phone"></i>
-                  <i class="fa fa-share-alt"></i>
+                  ${data.number ? `<a href="tel:${data.number}"><i class="fa fa-phone"></i></a>` : ''}
+                  <i class="fa fa-share-alt action-share" data-id="${data.id}"></i>
                 </div>
               </div>
               <div class="result-actions">
-                ${data.donatelink ? `<a href="${data.donatelink}">Donate</a>` : ''}
-                ${data.volunteerlink ? `<a href="${data.volunteerlink}">Volunteer</a>` : ''}
+                ${data.donatelink ? `<a target="_blank" href="${data.donatelink}">Donate</a>` : ''}
+                ${data.volunteerlink ? `<a target="_blank" href="${data.volunteerlink}">Volunteer</a>` : ''}
               </div>
           </div>
+          <div class="result-sharing"></div>
       </li>`;
   },
 
@@ -48,6 +48,19 @@ const render = {
       });
       return els.join('');
     }
+  },
+
+  sharing: function(org) {
+    var twitter = `https://twitter.com/intent/tweet?text=${encodeURI('Support: ')}&url=${encodeURI(org.website)}&via=thetogetherlist`,
+        facebook = `https://www.facebook.com/sharer.php?u=${encodeURI(org.website)}`,
+        tumblr = `http://tumblr.com/widgets/share/tool?title=${encodeURI(org.name)}&canonicalUrl=${encodeURI(org.website)}&caption=${encodeURI(org.description)}`,
+        email = `mailto:?&subject=Check out ${org.name}&body=${encodeURI([org.website, org.description].join('\n\n'))}`;
+    return `
+      <li><a href="${twitter}" title="Share via Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      <li><a href="${facebook}" title="Share via Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+      <li><a href="${tumblr} title="Share via Tumblr" target="_blank"><i class="fa fa-tumblr"></i></a></li>
+      <li><a href="${email}" title="Share via Email" target="_blank"><i class="fa fa-envelope"></i></a></li>
+    `;
   }
 };
 

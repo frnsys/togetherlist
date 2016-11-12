@@ -33,13 +33,14 @@ class App {
 
   loadOrgs(onLoad) {
     this.loadSpreadsheet(1, rows => {
-      this.orgs = _.chain(rows).map(row => {
+      this.orgs = _.chain(rows).map((row, i) => {
         var obj = util.parseGSXRow(row);
 
         // skip if no name
         if (!obj.name) return;
 
         // some extra parsing
+        obj.id = i;
         obj.rating = util.parseRating(obj.charitynavigatorrating);
         obj.deductible = util.parseBool(obj.taxdeductibleyn);
         obj.accredited = util.parseBool(obj.accreditedbusinessyn);
@@ -48,10 +49,11 @@ class App {
         obj.description = obj.description100characters;
         obj.donatelink = util.trim(obj.donatelink);
         obj.volunteerlink = util.trim(obj.volunteerlink);
+        obj.number = util.parseNumber(obj.numbers);
         if (obj.donatelink) obj.services.push('donations');
         if (obj.volunteerlink) obj.services.push('volunteers');
 
-        //console.log(obj); // debug
+        // console.log(obj); // debug
 
         return obj;
       }).compact().value();
@@ -98,6 +100,18 @@ class App {
       el.toggleClass('selected');
       this.filters.sortByRating = el.hasClass('selected');
       this.renderResults();
+    });
+  }
+
+  bindSharing() {
+    $('.results').on('click', '.action-share', ev => {
+      var id = $(ev.target).data('id'),
+          parent = $(ev.target).closest('.result'),
+          org = this.orgs[id],
+          html = render.sharing(org);
+      parent.find('.result-sharing').html(html).show();
+    }).on('mouseleave', '.result', ev => {
+      $('.result-sharing').hide();
     });
   }
 
@@ -194,6 +208,7 @@ class App {
 
     this.bindSearch();
     this.bindClear();
+    this.bindSharing();
     this.bindRatingFilter();
     this.bindFiltersToggle();
     this.bindSearchDropdown();
