@@ -6,34 +6,26 @@ const render = {
   result: function(data) {
     return `
       <li class="result">
-          <h2>${util.truncate(data.name, 30)}</h2>
-          <p class="result-description">${util.truncate(data.description, 100)}</p>
+          <div class="result-preview">
+            <h2>${util.truncate(data.name, 30)}</h2>
+            <p class="result-description">${util.truncate(data.description, 100)}</p>
+          </div>
           <div class="result-info">
-              <div class="result-actions">
-                  ${data.donatelink ? `<a href="${data.donatelink}">Donate</a>` : ''}
-                  ${data.donatelink && data.volunteerlink ? ' | ' : ''}
-                  ${data.volunteerlink ? `<a href="${data.volunteerlink}">Volunteer</a>` : ''}
-              </div>
+              <h3><a href="${data.website}">${data.name}</a> welcomes ${_.map(data.services, s => `<span class="result-service">${s.toLowerCase()}</span>`).join(', ')} help.</h3>
               <div class="result-meta">
-                  <h5>To <a href="${data.website}">${data.name}</a></h5>
-                  ${data.state ? `<h5>Based in <a href="#">${data.state}</a></h5>` : ''}
+                <div class="result-meta-info">
+                  ${data.state ? `<h5><span class="result-meta-lead">Based in</span> ${data.state}</h5>` : ''}
+                  <h5>${data.categories.join(', ')}</h5>
+                </div>
+                <div class="result-meta-share">
+                  <i class="fa fa-phone"></i>
+                  <i class="fa fa-share-alt"></i>
+                </div>
               </div>
-              <ul class="result-stats">
-                  <li>
-                      <h6>Charity Navigator Score</h6>
-                      <div class="stars">
-                        ${render.rating(data.rating)}
-                      </div>
-                  </li>
-                  <li>
-                      <h6>Tax Deductible</h6>
-                      ${data.deductible ? `<i class="fa fa-check-circle"></i>` : `<i class="fa fa-times-circle"></i>`}
-                  </li>
-                  <li>
-                      <h6>Accredited Business</h6>
-                      ${data.accredited ? `<i class="fa fa-check-circle"></i>` : `<i class="fa fa-times-circle"></i>`}
-                  </li>
-              </ul>
+              <div class="result-actions">
+                ${data.donatelink ? `<a href="${data.donatelink}">Donate</a>` : ''}
+                ${data.volunteerlink ? `<a href="${data.volunteerlink}">Volunteer</a>` : ''}
+              </div>
           </div>
       </li>`;
   },

@@ -9,49 +9,67 @@
   <body>
     <main>
         <header>
-            <h1><img src="assets/logo.svg"><b>together</b>list</h1>
+            <div class="header-bar">
+                <h1 class="logo"><img src="assets/logo.svg"><b>together</b>list</h1>
+                <ul class="get-involved">
+                    <li><a href="https://twitter.com/thetogetherlist">Contact Us</a></li>
+                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScS3scl2_LiNyDk0jf1CCPF9qsZlmrlvTWW_ckMlhGeEL0OXw/viewform?c=0&w=1">Submit Your Organization</a></li>
+                </li>
+            </div>
+            <section class="content">
+                <h1 class="title">Work Together. Stand Together</h1>
+                <div class="search-wrapper">
+                    <input type="text" name="search" class="search-input" placeholder="Search for an organization by name, city, interest or action">
+                </div>
+                <ul class="filters filters-categories"></ul>
+            </section>
         </header>
-        <section>
-            <ul class="filters filters-categories"></ul>
-            <ul class="filters-group">
-                <ul class="filters filters-flags">
-                    <li data-flag="donatelink">DonateNow</li>
-                    <li data-flag="volunteerlink">VolunteerNow</li>
-                </ul>
-                <ul class="filters filters-flags">
-                    <li data-flag="deductible">TaxDeductible</li>
-                    <li data-flag="accredited">AccreditedBusiness</li>
-                </ul>
-                <ul class="filters filters-rating">
-                    <li>
-                        <span class="filters-rating-reset">CharityNavigatorScore</span>
-                        <span class="filters-stars">
-                            <i class="fa fa-circle-o"></i>
-                            <i class="fa fa-circle-o"></i>
-                            <i class="fa fa-circle-o"></i>
-                            <i class="fa fa-circle-o"></i>
-                            <i class="fa fa-circle-o"></i>
-                        </span>
-                    </li>
-                </ul>
-            </ul>
-            <ul class="filters filters-services"></ul>
-        </section>
-        <section class="search">
-            <div class="info">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScS3scl2_LiNyDk0jf1CCPF9qsZlmrlvTWW_ckMlhGeEL0OXw/viewform?c=0&w=1">Add an organization</a> to our database or <a href="https://twitter.com/thetogetherlist">get in touch</a>
-                <div class="search-actions">
-                    <button class="action-clear">Clear</button>
-                    <button class="action-search">Search</button>
+        <section class="filters-all">
+            <div class="content">
+                <div class="filters-controls">
+                    <div class="toggle-filters"><i class="fa fa-sliders"></i> Filters</div>
+                    <div class="clear-filters"><i class="fa fa-times"></i> Clear</div>
+                </div>
+                <div class="filters-all-content">
+                    <ul class="filters filters-subcategories"></ul>
+                    <ul class="filters-group">
+                        <ul class="filters filters-flags">
+                            <li data-flag="deductible">Tax Deductible</li>
+                            <li data-flag="accredited">Accredited Business</li>
+                        </ul>
+                        <ul class="filters filters-rating">
+                            <li>
+                                <span class="filters-rating-reset">Charity Navigator Score</span>
+                                <span class="filters-stars">
+                                    <i class="fa fa-circle-o"></i>
+                                    <i class="fa fa-circle-o"></i>
+                                    <i class="fa fa-circle-o"></i>
+                                    <i class="fa fa-circle-o"></i>
+                                    <i class="fa fa-circle-o"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </ul>
+                    <ul class="filters filters-services"></ul>
                 </div>
             </div>
-            <div class="search-wrapper">
-                <input type="text" name="search" class="search-input" placeholder="e.g. lgbt non-profits in the midwest">
-            </div>
         </section>
-        <section class="results">
+        <section class="results content">
             <ul></ul>
         </section>
+        <footer>
+            <div class="footer-left">
+                <img src="assets/logo.svg">
+                <a href="/about">About</a>
+                <a href="https://twitter.com/thetogetherlist">Contact</a>
+            </div>
+ 	        <div class="copyright">&copy; Togetherlist 2016. All rights reserved.</div>
+            <div class="footer-right">
+                <span>Follow Us</span>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </div>
+        </footer>
     </main>
     <script src="bundle.js"></script>
   </body>

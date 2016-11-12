@@ -4,6 +4,8 @@
 
 $primaryColor: #652d90
 $secondaryColor: #361d51
+$altColor: #00babc
+$altSecondaryColor: #009495
 $primaryFont: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
 
 *
@@ -14,23 +16,13 @@ $primaryFont: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
 html
   font-family: $primaryFont
 
-main
+.content
   max-width: 960px
-  margin: 2em auto
-
-h1
-  font-size: 2em
-  color: $primaryColor
+  margin: 0 auto
+  clear: both
 
 b
   font-weight: bold
-
-.info
-  text-align: center
-  padding: 1em 0 0.5em 0
-  margin: 0 0 1em 0
-  a, a:visited
-    font-weight: bold
 
 .filters-group
   display: flex
@@ -46,43 +38,60 @@ b
   li
     flex: 1
     padding: 1.2em 1em 1em 1em
-    font-size: 0.65em
-    text-transform: uppercase
-    border: 1px solid #aaa
-    border-left: none
+    font-size: 0.75em
     text-align: center
-    color: #777
+    color: #fff
     cursor: pointer
-    &:first-child
-      border-left: 1px solid #aaa
-    &:hover
-      background: $secondaryColor
-      color: #fff
-    &.selected
-      background: $primaryColor
-      color: #fff
   i
     padding: 0 0.5em
 .filters-stars
   font-size: 0
   i
     font-size: 12px
+.filters-categories
+  li
+    text-transform: uppercase
+    &:hover
+      font-weight: bold
+    &.selected
+      font-weight: bold
+.filters-all
+  background: $altColor
+  color: #fff
+  padding: 1em 0
+  li
+    background: #fff
+    color: #343434
+    margin-right: 0.5em
+    &:last-child
+      margin-right: 0
+    &:hover
+      background: $secondaryColor
+      color: #fff
+    &.selected
+      background: $primaryColor
+      color: #fff
 
 .search-input
   width: 100%
-  padding: 0.5em 1em 0.5em 3em
-  border: 2px solid #ddd
+  padding: 0.5em 1em 0.5em 2.5em
+  border: none
   font-family: $primaryFont
+  font-size: 1.5em
+  border-radius: 2em
+  color: #a6a6a6
 
 .search-wrapper
   position: relative
+  margin: 0 0 3em 0
   &:before
     font-family: 'FontAwesome'
-    color: #aaa
+    color: $primaryColor
     position: absolute
-    top: 0.5em
-    left: 1em
+    top: 0.3em
+    left: 0.5em
     content: "\f002"
+    font-size: 2em
 
 .search-actions
   float: right
@@ -106,122 +115,87 @@ b
     background: $primaryColor
     color: #fff
 
-
 a, a:visited
   color: #000
   &:hover
     color: $primaryColor
 
-.results
-  ul
-    text-align: justify
-
-.result
-  display: inline-block
-  width: 33%
-  background: $primaryColor
-  text-align: center
-  color: #fff
-  padding: 4em 1em
-  margin: 1em 0 0 0
-  cursor: pointer
-  position: relative
-  height: 16em
-  overflow: hidden
-  a, a:visited
-    color: #fff
-    &:hover
-      color: $primaryColor
-  h2
-    font-size: 1.8em
-    font-weight: bold
-    margin: 0 0 0.5em 0
-  .result-actions
-    font-size: 1.4em
-    font-weight: bold
-    text-transform: uppercase
-    margin: 0 0 0.4em 0
-  .result-info
-    display: none
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    background: rgba(0,0,0,0.9)
-    color: #fff
-    padding: 1.5em
-    text-align: left
-  &:hover
-    .result-info
-      display: block
-
-.result-stats
-  position: absolute
-  bottom: 1.5em
-  left: 1.5em
-  right: 1.5em
-  display: flex
-  li
-    flex: 1
-    margin-right: 0.5em
-    &:last-child
-      margin-right: 0
-    &:first-child
-      flex: 1.5
-  i
-    font-size: 2em
-  h6
-    text-transform: uppercase
-    font-weight: bold
-    font-size: 0.7em
-    margin: 0 0 1em 0
-  .stars i
-    font-size: 1em
-  h1
-    color: #fff
-    display: inline-block
-
-.result-meta
-  font-size: 0.7em
-  text-transform: uppercase
-  line-height: 1.5
-  h5:first-child
-    font-weight: bold
-
-.result-description
-  font-size: 0.9em
-
-
-@keyframes checkHighlight
-  0%
-    color: #fff
-  100%
-    color: #239541
-
-@keyframes starHighlight
-  0%
-    color: #fff
-  100%
-    color: #efef4c
-
-.fa-check-circle
-  animation-name: checkHighlight
-  animation-duration: 0.2s
-  animation-timing-function: linear
-  animation-iteration-count: 1
-  animation-fill-mode: forwards
-
-.stars
-  animation-name: starHighlight
-  animation-duration: 0.2s
-  animation-timing-function: linear
-  animation-iteration-count: 1
-  animation-fill-mode: forwards
-
 header
-  margin: 0 0 1em 0
+  color: #fff
+  background: $primaryColor
+  background-image: url('../assets/header.jpg')
+  background-size: cover
+  background-position: top center
+  padding: 1em
+  .logo
+    float: left
+    font-size: 1.8em
+  .get-involved
+    float: right
+    li
+      float: left
+      padding: 0.5em 1em
+      border: 2px solid $altColor
+      text-transform: lowercase
+      a, a:visited
+        color: #fff
+        text-decoration: none
+      &:first-child
+        background: $altColor
   img
     width: 1em
     margin-right: 0.3em
     vertical-align: top
+
+.header-bar
+  font-size: 0.8em
+
+.title
+  text-transform: uppercase
+  font-size: 3em
+  text-align: center
+  margin: 3em 0 0.8em 0
+
+footer
+  background: #212121
+  color: #fff
+  padding: 0.5em 1em
+  display: flex
+  a, a:visited
+    color: #fff
+    text-decoration: none
+  img
+    width: 42px
+    vertical-align: middle
+    margin-right: 0.5em
+  .footer-left,
+  .footer-right
+    flex: 1
+    span, a
+      margin: 0 0.5em
+  .footer-right
+    text-align: right
+  .copyright
+    flex: 2
+    text-align: center
+  .footer-left,
+  .footer-right,
+  .copyright
+    padding: 1em 0
+    line-height: 2.5
+
+.filters-all-content
+  display: none
+  > .filters:first-child
+    margin-top: 1em
+.filters-controls
+  font-size: 1.2em
+  overflow: hidden
+.toggle-filters
+  float: left
+  cursor: pointer
+.clear-filters
+  float: right
+  cursor: pointer
+
+@import result

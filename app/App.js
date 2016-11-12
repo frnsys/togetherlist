@@ -45,6 +45,10 @@ class App {
         obj.categories = _.compact([obj.category1, obj.category2, obj.category3]);
         obj.services = _.compact([obj.filter1, obj.filter2, obj.filter3]);
         obj.description = obj.description100characters;
+        if (obj.donatelink) obj.services.push('donations');
+        if (obj.volunteerlink) obj.services.push('volunteers');
+
+        console.log(obj); // debug
 
         return obj;
       }).compact().value();
@@ -57,14 +61,25 @@ class App {
       this.categories = _.map(rows, row => {
         var cat = util.parseGSXRow(row).category;
         $('.filters-categories').append(
-          `<li data-category="${cat}">${util.slugify(cat)}</li>`);
+          `<li data-category="${cat}" title="${util.slugify(cat)}">${util.slugify(cat)}</li>`);
+        return cat;
+      });
+    });
+  }
+
+  loadSubCategories() {
+    this.loadSpreadsheet(3, rows => {
+      this.categories = _.map(rows, row => {
+        var cat = util.parseGSXRow(row)['sub-category'];
+        $('.filters-subcategories').append(
+          `<li data-subcategory="${cat}">${cat}</li>`);
         return cat;
       });
     });
   }
 
   loadServices() {
-    this.loadSpreadsheet(3, rows => {
+    this.loadSpreadsheet(4, rows => {
       this.services = _.map(rows, row => {
         var service = util.parseGSXRow(row).service;
         $('.filters-services').append(
@@ -122,7 +137,7 @@ class App {
   }
 
   bindClear() {
-    $('.action-clear').on('click', ev => {
+    $('.clear-filters').on('click', ev => {
       this.results = this.orgs;
       this.resetFilters();
       this.renderResults();
@@ -138,7 +153,12 @@ class App {
         this.search();
       }
     });
-    $('.action-search').on('click', this.search.bind(this));
+  }
+
+  bindFiltersToggle() {
+    $('.toggle-filters').on('click', ev => {
+      $('.filters-all-content').toggle();
+    });
   }
 
   search() {
@@ -166,12 +186,14 @@ class App {
       this.renderResults();
       search.index(this.orgs);
     });
-    this.loadCategories();
     this.loadServices();
+    this.loadCategories();
+    this.loadSubCategories();
 
     this.bindSearch();
     this.bindClear();
     this.bindRatingFilter();
+    this.bindFiltersToggle();
     this.bindFilter('.filters-flags', 'flag', 'flags');
     this.bindFilter('.filters-categories', 'category', 'categories');
     this.bindFilter('.filters-services', 'service', 'services');
