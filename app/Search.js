@@ -23,12 +23,14 @@ const search = {
   },
 
   filter: function(items, filters) {
-    return _.filter(items, item => {
+    return _.chain(items).filter(item => {
       return item.rating >= filters.rating &&
         _.every(filters.categories, cat => _.contains(item.categories, cat)) &&
         _.every(filters.services, service => _.contains(item.services, service)) &&
         _.every(filters.flags, flag => item[flag]);
-    });
+    }).sortBy((item, i) => {
+      return filters.sortByRating ? item.rating * -1 : i;
+    }).value();
   },
 
   search: function(query) {

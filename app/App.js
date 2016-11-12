@@ -18,7 +18,8 @@ class App {
       flags: [],
       rating: -1,
       categories: [],
-      services: []
+      services: [],
+      sortByRating: false
     };
   }
 
@@ -48,7 +49,7 @@ class App {
         if (obj.donatelink) obj.services.push('donations');
         if (obj.volunteerlink) obj.services.push('volunteers');
 
-        console.log(obj); // debug
+        //console.log(obj); // debug
 
         return obj;
       }).compact().value();
@@ -90,35 +91,11 @@ class App {
   }
 
   bindRatingFilter() {
-    $('.filters-rating i').on('mouseenter', ev => {
-      var idx = $(ev.target).index();
-      this.renderRatingFilter(idx);
-    }).on('mouseleave', ev => {
-      this.renderRatingFilter(this.filters.rating);
-    }).on('click', ev => {
-      var idx = $(ev.target).index();
-      this.filters.rating = idx+1;
+    $('.filters-rating').on('click', ev => {
+      var el = $(ev.target);
+      el.toggleClass('selected');
+      this.filters.sortByRating = el.hasClass('selected');
       this.renderResults();
-    });
-
-    $('.filters-rating-reset').on('mouseenter', ev => {
-      this.renderRatingFilter(-1);
-    }).on('mouseleave', ev => {
-      this.renderRatingFilter(this.filters.rating);
-    }).on('click', ev => {
-      this.filters.rating = -1;
-      this.renderResults();
-    });
-  }
-
-  renderRatingFilter(n_stars) {
-    var selector = '.filters-rating i';
-    $(selector).each(function(i) {
-      if (i <= n_stars) {
-        $(this).removeClass('fa-circle-o').addClass('fa-star');
-      } else {
-        $(this).removeClass('fa-star').addClass('fa-circle-o');
-      }
     });
   }
 
@@ -142,7 +119,6 @@ class App {
       this.results = this.orgs;
       this.resetFilters();
       this.renderResults();
-      this.renderRatingFilter();
       $('.selected').removeClass('selected');
       $('input[name=search]').val('');
     });
@@ -173,6 +149,7 @@ class App {
   renderResults() {
     var html = [],
         results = search.filter(this.results, this.filters);
+    console.log(results);
     if (results.length > 0) {
       _.each(results, result => {
         html.push(render.result(result));
