@@ -50,9 +50,10 @@ class App {
         obj.donatelink = util.trim(obj.donatelink);
         obj.volunteerlink = util.trim(obj.volunteerlink);
         obj.number = util.parseNumber(obj.numbers);
-        obj.services = obj.additionalServices.concat();
+        obj.services = [];
         if (obj.donatelink) obj.services.push('donations');
         if (obj.volunteerlink) obj.services.push('volunteers');
+        obj.services = obj.services.concat(obj.additionalServices);
 
         // console.log(obj); // debug
 
