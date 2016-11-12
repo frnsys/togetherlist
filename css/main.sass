@@ -39,10 +39,10 @@ b
 .filters
   display: flex
   margin: 0.5em 0
-  li
+  button
     flex: 1
-    padding: 1.2em 1em 1em 1em
-    font-size: 0.75em
+    padding: 1.2em 0.4em 1em 0.4em
+    font-size: 0.85em
     text-align: center
     color: #fff
     cursor: pointer
@@ -53,7 +53,7 @@ b
   i
     font-size: 12px
 .filters-categories
-  li
+  button
     text-transform: uppercase
     &:hover
       font-weight: bold
@@ -63,7 +63,7 @@ b
   background: $altColor
   color: #fff
   padding: 1em 0
-  li
+  button
     background: #fff
     color: #343434
     margin-right: 0.5em
@@ -96,28 +96,6 @@ b
     left: 0.5em
     content: "\f002"
     font-size: 2em
-
-.search-actions
-  float: right
-  margin-top: -0.4em
-  button
-    display: inline-block
-    border: 1px solid $primaryColor
-    color: $primaryColor
-    text-align: center
-    text-transform: uppercase
-    padding: 0.9em 1.5em 0.7em 1.5em
-    font-size: 0.65em
-    cursor: pointer
-    margin-top: -0.3em
-    font-family: $primaryFont
-    &:hover
-      background: $secondaryColor
-      border: 1px solid $secondaryColor
-      color: #fff
-  .action-search
-    background: $primaryColor
-    color: #fff
 
 a, a:visited
   color: #000
@@ -199,6 +177,10 @@ footer
 .filters-controls
   font-size: 1.2em
   overflow: hidden
+  button, button:hover
+    color: #fff
+    background: none
+
 .toggle-filters
   float: left
   cursor: pointer

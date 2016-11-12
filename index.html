@@ -10,7 +10,7 @@
     <main>
         <header>
             <div class="header-bar">
-                <h1 class="logo"><img src="assets/logo.svg"><b>together</b>list</h1>
+                <h1 class="logo"><img src="assets/logo.svg" alt="TogetherList logo"><b>together</b>list</h1>
                 <ul class="get-involved">
                     <li><a href="https://twitter.com/thetogetherlist">Contact Us</a></li>
                     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScS3scl2_LiNyDk0jf1CCPF9qsZlmrlvTWW_ckMlhGeEL0OXw/viewform?c=0&w=1">Submit Your Organization</a></li>
@@ -19,25 +19,25 @@
             <section class="content">
                 <h1 class="title">Work Together. Stand Together</h1>
                 <div class="search-wrapper">
-                    <input type="text" name="search" class="search-input" placeholder="Search for an organization by name, city, interest or action">
+                    <input type="text" name="search" class="search-input" placeholder="Search for an organization by name, city, interest or action" aria-label="Search">
                 </div>
-                <ul class="filters filters-categories"></ul>
+                <div class="filters filters-categories"></div>
             </section>
         </header>
         <section class="filters-all">
             <div class="content">
                 <div class="filters-controls">
-                    <div class="toggle-filters"><i class="fa fa-sliders"></i> Filters</div>
-                    <div class="clear-filters"><i class="fa fa-times"></i> Clear</div>
+                    <button class="toggle-filters"><i class="fa fa-sliders"></i> Filters</button>
+                    <button class="clear-filters"><i class="fa fa-times"></i> Clear</button>
                 </div>
                 <div class="filters-all-content">
-                    <ul class="filters filters-subcategories"></ul>
-                    <ul class="filters-group">
-                        <ul class="filters filters-flags">
-                            <li data-flag="deductible">Tax Deductible</li>
-                            <li data-flag="accredited">Accredited Business</li>
-                        </ul>
-                        <ul class="filters filters-rating">
+                    <div class="filters filters-subcategories"></div>
+                    <div class="filters-group">
+                        <div class="filters filters-flags">
+                            <button data-flag="deductible">Tax Deductible</button>
+                            <button data-flag="accredited">Accredited Business</button>
+                        </div>
+                        <div class="filters filters-rating">
                             <li>
                                 <span class="filters-rating-reset">Charity Navigator Score</span>
                                 <span class="filters-stars">
@@ -48,9 +48,9 @@
                                     <i class="fa fa-circle-o"></i>
                                 </span>
                             </li>
-                        </ul>
-                    </ul>
-                    <ul class="filters filters-services"></ul>
+                        </div>
+                    </div>
+                    <div class="filters filters-services"></div>
                 </div>
             </div>
         </section>
@@ -59,7 +59,7 @@
         </section>
         <footer>
             <div class="footer-left">
-                <img src="assets/logo.svg">
+                <img src="assets/logo.svg" alt="TogetherList logo">
                 <a href="/about">About</a>
                 <a href="https://twitter.com/thetogetherlist">Contact</a>
             </div>

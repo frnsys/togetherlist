@@ -61,7 +61,7 @@ class App {
       this.categories = _.map(rows, row => {
         var cat = util.parseGSXRow(row).category;
         $('.filters-categories').append(
-          `<li data-category="${cat}" title="${util.slugify(cat)}">${util.slugify(cat)}</li>`);
+          `<button data-category="${cat}" title="${util.slugify(cat)}">${util.slugify(cat)}</button>`);
         return cat;
       });
     });
@@ -72,7 +72,7 @@ class App {
       this.categories = _.map(rows, row => {
         var cat = util.parseGSXRow(row)['sub-category'];
         $('.filters-subcategories').append(
-          `<li data-subcategory="${cat}">${cat}</li>`);
+          `<button data-subcategory="${cat}">${cat}</button>`);
         return cat;
       });
     });
@@ -83,7 +83,7 @@ class App {
       this.services = _.map(rows, row => {
         var service = util.parseGSXRow(row).service;
         $('.filters-services').append(
-          `<li data-service="${service}">${util.slugify(service)}</li>`);
+          `<button data-service="${service}">${util.slugify(service)}</button>`);
         return service;
       });
     });
@@ -123,7 +123,7 @@ class App {
   }
 
   bindFilter(sel, dataName, filterType) {
-    $(sel).on('click', 'li', ev => {
+    $(sel).on('click', 'button', ev => {
       var el = $(ev.target),
           filter = el.data(dataName);
       el.toggleClass('selected');
@@ -133,6 +133,7 @@ class App {
         this.filters[filterType] = _.without(this.filters[filterType], filter);
       }
       this.renderResults();
+      return false;
     });
   }
 
