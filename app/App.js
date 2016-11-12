@@ -58,7 +58,7 @@ class App {
         if (obj.volunteerlink) obj.services.push('volunteers');
         obj.services = obj.services.concat(obj.additionalServices);
 
-        console.log(obj); // debug
+        // console.log(obj); // debug
 
         return obj;
       }).compact().value();
