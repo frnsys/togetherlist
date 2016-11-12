@@ -64,6 +64,17 @@ class App {
     });
   }
 
+  updateAvailableFilters(results) {
+    var filters = [];
+    $('[data-flag=deductible]').attr('disabled', !_.some(results, r => r.deductible));
+    $('[data-flag=accredited]').attr('disabled', !_.some(results, r => r.accredited));
+    $('.filters-services button').each(function() {
+      var service = $(this).data('service');
+      $(this).attr('disabled',
+        !_.some(results, r => _.contains(r.services, service)));
+    });
+  }
+
   loadCategories() {
     this.loadSpreadsheet(2, rows => {
       this.categories = _.map(rows, row => {
@@ -208,6 +219,7 @@ class App {
     } else {
       $('.results > ul').html('<h1 class="no-results">No results</h1>');
     }
+    this.updateAvailableFilters(results);
   }
 
   run() {
