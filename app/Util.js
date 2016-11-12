@@ -17,6 +17,14 @@ const util = {
     return str.replace(' ', '').replace('-', '');
   },
 
+  joinAnd: function(arr) {
+    if (arr.length <= 2) {
+      return arr.join(' & ');
+    }
+    var acc = arr.slice(0, arr.length - 2).join(', ');
+    return [acc, arr[arr.length - 1]].join(' & ');
+  },
+
   parseGSXRow: function(row) {
     // parse a GSX (Google Spreadsheet)
     // row into something nicer

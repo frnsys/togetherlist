@@ -45,11 +45,12 @@ class App {
         obj.deductible = util.parseBool(obj.taxdeductibleyn);
         obj.accredited = util.parseBool(obj.accreditedbusinessyn);
         obj.categories = _.compact([obj.category1, obj.category2, obj.category3]);
-        obj.services = _.compact([obj.filter1, obj.filter2, obj.filter3]);
+        obj.additionalServices = _.compact([obj.filter1, obj.filter2, obj.filter3]);
         obj.description = obj.description100characters;
         obj.donatelink = util.trim(obj.donatelink);
         obj.volunteerlink = util.trim(obj.volunteerlink);
         obj.number = util.parseNumber(obj.numbers);
+        obj.services = obj.additionalServices.concat();
         if (obj.donatelink) obj.services.push('donations');
         if (obj.volunteerlink) obj.services.push('volunteers');
 
