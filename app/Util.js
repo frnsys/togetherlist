@@ -54,7 +54,8 @@ const util = {
   },
 
   parseNumber: function(str) {
-    return str.replace(/\D+/g, '');
+    // this grabs the first number only
+    return str.split(',')[0].replace(/\D+/g, '');
   }
 };
 
