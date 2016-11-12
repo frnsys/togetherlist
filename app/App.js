@@ -148,10 +148,8 @@ class App {
   }
 
   bindSearch() {
-    $('input[name=search]').on('keydown', ev => {
-      if (ev.keyCode === 13) { // enter
-        this.search();
-      }
+    $('input[name=search]').on('keyup', ev => {
+      this.search();
     });
   }
 

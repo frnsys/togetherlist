@@ -11,7 +11,7 @@ const render = {
             <p class="result-description">${util.truncate(data.description, 100)}</p>
           </div>
           <div class="result-info">
-              <h3><a href="${data.website}">${data.name}</a> welcomes ${_.map(data.services, s => `<span class="result-service">${s.toLowerCase()}</span>`).join(', ')} help.</h3>
+              <h3><a href="${data.website ? data.website : '#'}">${data.name}</a> welcomes ${_.map(data.services, s => `<span class="result-service">${s.toLowerCase()}</span>`).join(', ')} help.</h3>
               <div class="result-meta">
                 <div class="result-meta-info">
                   ${data.state ? `<h5><span class="result-meta-lead">Based in</span> ${data.state}</h5>` : ''}
