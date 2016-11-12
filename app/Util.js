@@ -9,6 +9,10 @@ const util = {
     return str;
   },
 
+  trim: function(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+  },
+
   slugify: function(str) {
     return str.replace(' ', '').replace('-', '');
   },

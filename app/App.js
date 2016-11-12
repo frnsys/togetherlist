@@ -46,6 +46,8 @@ class App {
         obj.categories = _.compact([obj.category1, obj.category2, obj.category3]);
         obj.services = _.compact([obj.filter1, obj.filter2, obj.filter3]);
         obj.description = obj.description100characters;
+        obj.donatelink = util.trim(obj.donatelink);
+        obj.volunteerlink = util.trim(obj.volunteerlink);
         if (obj.donatelink) obj.services.push('donations');
         if (obj.volunteerlink) obj.services.push('volunteers');
 
@@ -149,7 +151,6 @@ class App {
   renderResults() {
     var html = [],
         results = search.filter(this.results, this.filters);
-    console.log(results);
     if (results.length > 0) {
       _.each(results, result => {
         html.push(render.result(result));

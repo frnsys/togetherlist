@@ -16,3 +16,7 @@ For development, run the webpack server and sass:
 For production, build the site:
 
     npm run build
+
+## Note on fonts
+
+The font used is [Halis Rounded](https://www.fontspring.com/fonts/ahmet-altun/halis-rounded).
