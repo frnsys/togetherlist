@@ -26,6 +26,7 @@ const search = {
     return _.chain(items).filter(item => {
       return item.rating >= filters.rating &&
         _.every(filters.categories, cat => _.contains(item.categories, cat)) &&
+        _.every(filters.subcategories, cat => _.contains(item.subcategories, cat)) &&
         _.every(filters.services, service => _.contains(item.services, service)) &&
         _.every(filters.flags, flag => item[flag]) &&
         (!filters.state || item.state == filters.state);

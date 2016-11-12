@@ -18,6 +18,7 @@ class App {
       flags: [],
       rating: -1,
       categories: [],
+      subcategories: [],
       services: [],
       state: false,
       sortByRating: false
@@ -46,6 +47,7 @@ class App {
         obj.deductible = util.parseBool(obj.taxdeductibleyn);
         obj.accredited = util.parseBool(obj.accreditedbusinessyn);
         obj.categories = _.compact([obj.category1, obj.category2, obj.category3]);
+        obj.subcategories = _.compact([obj.subcategory1, obj.subcategory2]);
         obj.additionalServices = _.compact([obj.filter1, obj.filter2, obj.filter3]);
         obj.description = obj.description100characters;
         obj.donatelink = util.trim(obj.donatelink);
@@ -56,7 +58,7 @@ class App {
         if (obj.volunteerlink) obj.services.push('volunteers');
         obj.services = obj.services.concat(obj.additionalServices);
 
-        // console.log(obj); // debug
+        console.log(obj); // debug
 
         return obj;
       }).compact().value();
@@ -72,6 +74,11 @@ class App {
       var service = $(this).data('service');
       $(this).attr('disabled',
         !_.some(results, r => _.contains(r.services, service)));
+    });
+    $('.filters-subcategories button').each(function() {
+      var cat = $(this).data('subcategory');
+      $(this).attr('disabled',
+        !_.some(results, r => _.contains(r.subcategories, cat)));
     });
   }
 
@@ -244,6 +251,7 @@ class App {
     this.bindFilter('.filters-flags', 'flag', 'flags');
     this.bindFilter('.filters-categories', 'category', 'categories');
     this.bindFilter('.filters-services', 'service', 'services');
+    this.bindFilter('.filters-subcategories', 'subcategory', 'subcategories');
   }
 }
 
