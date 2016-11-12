@@ -174,10 +174,14 @@ class App {
   renderResults() {
     var html = [],
         results = search.filter(this.results, this.filters);
-    _.each(results, result => {
-      html.push(render.result(result));
-    });
-    $('.results > ul').html(html.join(''));
+    if (results.length > 0) {
+      _.each(results, result => {
+        html.push(render.result(result));
+      });
+      $('.results > ul').html(html.join(''));
+    } else {
+      $('.results > ul').html('<h1 class="no-results">No results</h1>');
+    }
   }
 
   run() {

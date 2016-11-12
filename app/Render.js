@@ -7,7 +7,7 @@ const render = {
     return `
       <li class="result">
           <div class="result-preview">
-            <h2>${util.truncate(data.name, 30)}</h2>
+            <h2><span>${util.truncate(data.name, 30)}</span></h2>
             <p class="result-description">${util.truncate(data.description, 100)}</p>
           </div>
           <div class="result-info">
