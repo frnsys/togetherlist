@@ -80,7 +80,7 @@ class App {
       this.categories = _.map(rows, row => {
         var cat = util.parseGSXRow(row).category;
         $('.filters-categories').append(
-          `<button data-category="${cat}" title="${util.slugify(cat)}">${util.slugify(cat)}</button>`);
+          `<button data-category="${cat}">${cat}</button>`);
         return cat;
       });
     });
