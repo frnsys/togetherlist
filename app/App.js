@@ -139,6 +139,9 @@ class App {
       this.search();
       $('.search-dropdown').hide();
     });
+    $('.search-wrapper').on('mouseleave', ev => {
+      $('.search-dropdown').hide();
+    });
   }
 
   bindFiltersToggle() {
@@ -155,6 +158,8 @@ class App {
       });
       this.renderResults();
       this.renderSearchNames();
+    } else {
+      $('.search-dropdown').hide();
     }
   }
 
