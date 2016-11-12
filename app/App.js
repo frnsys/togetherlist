@@ -132,6 +132,15 @@ class App {
     });
   }
 
+  bindSearchDropdown() {
+    $('.search-dropdown').on('click', 'li', ev => {
+      var name = $(ev.target).data('name');
+      $('input[name=search]').val(name);
+      this.search();
+      $('.search-dropdown').hide();
+    });
+  }
+
   bindFiltersToggle() {
     $('.toggle-filters').on('click', ev => {
       $('.filters-all-content').toggle();
@@ -145,7 +154,14 @@ class App {
         return this.orgs[res.ref];
       });
       this.renderResults();
+      this.renderSearchNames();
     }
+  }
+
+  renderSearchNames() {
+    var names = _.pluck(this.results, 'name').slice(0, 5),
+        html = _.map(names, name => `<li data-name="${name}">${name}</li>`);
+    $('.search-dropdown').html(html.join('')).show();
   }
 
   renderResults() {
@@ -175,6 +191,7 @@ class App {
     this.bindClear();
     this.bindRatingFilter();
     this.bindFiltersToggle();
+    this.bindSearchDropdown();
     this.bindFilter('.filters-flags', 'flag', 'flags');
     this.bindFilter('.filters-categories', 'category', 'categories');
     this.bindFilter('.filters-services', 'service', 'services');
