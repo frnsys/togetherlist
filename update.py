@@ -21,9 +21,11 @@ ALLOWED_FILETYPES = [
 
 if __name__ == '__main__':
     # collect local files
+    ldirs = []
     lpaths = []
     for path, dirs, files in os.walk('.', topdown=True):
         dirs[:] = [d for d in dirs if d not in IGNORE]
+        ldirs.append(path[2:])
         for f in files:
             if f == '.':
                 continue
@@ -41,7 +43,7 @@ if __name__ == '__main__':
 
     # what to delete
     lexists = [path for path, _ in lpaths]
-    todelete = [path for path, _ in rpaths if path not in lexists]
+    todelete = [path for path, _ in rpaths if path not in lexists + ldirs]
 
     # what to create/update
     toupdate = []
