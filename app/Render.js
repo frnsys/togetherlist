@@ -7,7 +7,7 @@ const render = {
       <li class="result">
           <div class="result-preview">
             <h2><span>${util.truncate(data.name, 30)}</span></h2>
-            <p class="result-description">${util.truncate(data.description, 150)}</p>
+            <p class="result-description">${util.truncate(data.description, 132)}</p>
           </div>
           <div class="result-info">
               <h3><a href="${data.website ? data.website : '#'}" target="_blank">${data.name}</a> welcomes ${util.joinAnd(_.map(data.services, s => `<span class="result-service">${s.toLowerCase().replace('esl', 'ESL')}</span>`))}${data.additionalServices.length > 0 ? ' help' : ''}.</h3>
