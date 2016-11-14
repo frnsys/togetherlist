@@ -21,21 +21,8 @@ const util = {
     if (arr.length <= 2) {
       return arr.join(' & ');
     }
-    var acc = arr.slice(0, arr.length - 2).join(', ');
+    var acc = arr.slice(0, arr.length - 1).join(', ');
     return [acc, arr[arr.length - 1]].join(' & ');
-  },
-
-  parseGSXRow: function(row) {
-    // parse a GSX (Google Spreadsheet)
-    // row into something nicer
-    var obj = {};
-    _.each(row, (v, k) => {
-      if (k.startsWith('gsx$')) {
-        var field = k.replace('gsx$', '');
-        obj[field] = v.$t;
-      }
-    });
-    return obj;
   },
 
   parseBool: function(str) {

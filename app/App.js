@@ -3,9 +3,7 @@ import _ from 'underscore';
 import util from './Util';
 import render from './Render';
 import search from './Search';
-
-
-const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
+import sheet from './Sheet';
 
 
 class App {
@@ -25,18 +23,10 @@ class App {
     };
   }
 
-  loadSpreadsheet(num, onLoad) {
-    var url = `https://spreadsheets.google.com/feeds/list/${SPREADSHEET_ID}/${num}/public/full?alt=json`;
-    $.ajax({
-      url: url,
-      success: data => onLoad(data.feed.entry)
-    });
-  }
-
   loadOrgs(onLoad) {
-    this.loadSpreadsheet(1, rows => {
+    sheet.load(1, rows => {
       this.orgs = _.chain(rows).map((row, i) => {
-        var obj = util.parseGSXRow(row);
+        var obj = sheet.parseRow(row);
 
         // skip if no name
         if (!obj.name) return;
@@ -83,9 +73,9 @@ class App {
   }
 
   loadCategories() {
-    this.loadSpreadsheet(2, rows => {
+    sheet.load(2, rows => {
       this.categories = _.map(rows, row => {
-        var cat = util.parseGSXRow(row).category;
+        var cat = sheet.parseRow(row).category;
         $('.filters-categories').append(
           `<button data-category="${cat}">${cat}</button>`);
         return cat;
@@ -94,9 +84,9 @@ class App {
   }
 
   loadSubCategories() {
-    this.loadSpreadsheet(3, rows => {
+    sheet.load(3, rows => {
       this.categories = _.map(rows, row => {
-        var cat = util.parseGSXRow(row)['sub-category'];
+        var cat = sheet.parseRow(row)['sub-category'];
         $('.filters-subcategories').append(
           `<button data-subcategory="${cat}">${cat}</button>`);
         return cat;
@@ -105,9 +95,9 @@ class App {
   }
 
   loadServices() {
-    this.loadSpreadsheet(4, rows => {
+    sheet.load(4, rows => {
       this.services = _.map(rows, row => {
-        var service = util.parseGSXRow(row).service;
+        var service = sheet.parseRow(row).service;
         $('.filters-services').append(
           `<button data-service="${service}">${util.slugify(service)}</button>`);
         return service;
