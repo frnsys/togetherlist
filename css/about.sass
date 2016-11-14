@@ -1,7 +1,7 @@
 .about-title
   text-align: left
 
-.about-intro
+.about-intro, .faq
   display: flex
   border-bottom: 1px solid #d7d7d7
   a, a:visited
@@ -29,7 +29,7 @@
     flex: 2
     color: #555
 
-.about-intro, .about-letter
+.about-intro, .about-letter, .faq
   padding: 3em 2em
 
 .about-letter
@@ -40,8 +40,15 @@
     color: #555
     line-height: 1.6
 
+.faq
+  aside
+    li
+      font-size: 1.2em
+      margin: 0 0 2em 0
+
+
 @media screen and (max-width: 620px)
-  .about-intro
+  .about-intro, .faq
     display: block
     article
       padding: 0 0 2em 0
