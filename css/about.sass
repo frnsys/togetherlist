@@ -15,19 +15,22 @@
     flex: 4
     font-size: 1.3em
     padding: 0 3em 0 0
-    li
-      margin: 0 0 0.8em 0
     p
       font-size: 0.8em
       color: #767676
       &:first-child
         color: #222
         font-size: 1em
-      &:last-of-type
-        margin-bottom: 3em
   aside
     flex: 2
     color: #555
+
+.about-intro
+  article
+    li
+      margin: 0 0 0.8em 0
+    &:last-of-type
+      margin-bottom: 3em
 
 .about-intro, .about-letter, .faq
   padding: 3em 2em
@@ -45,7 +48,25 @@
     li
       font-size: 1.2em
       margin: 0 0 2em 0
+  .back-to-top, .back-to-top:visited
+    font-weight: normal
+    font-size: 0.8em
+    color: #aaa
+    text-decoration: underline
 
+.faq-questions
+  li
+    margin: 0 0 2em 0
+    line-height: 1.4
+  margin-bottom: 4em
+
+.faq-answers
+  li
+    margin: 0 0 6em 0
+
+.faq-answer-question
+  margin: 0 0 0.5em 0
+  display: block
 
 @media screen and (max-width: 620px)
   .about-intro, .faq

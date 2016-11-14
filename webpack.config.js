@@ -3,7 +3,8 @@ var path = require('path');
 module.exports = {
   entry: {
     main: './main',
-    about: './about'
+    about: './about',
+    faq: './faq'
   },
   output: {
     filename: "[name].bundle.js"
