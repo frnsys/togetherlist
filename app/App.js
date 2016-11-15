@@ -5,6 +5,8 @@ import render from './Render';
 import search from './Search';
 import sheet from './Sheet';
 
+const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
+const NO_RESULTS_COPY = "Can't find the organization you're looking for? Help grow our Togetherlist dabase. Please submit using our <a href='https://docs.google.com/forms/d/e/1FAIpQLScS3scl2_LiNyDk0jf1CCPF9qsZlmrlvTWW_ckMlhGeEL0OXw/viewform?c=0&w=1'>Submissions Form</a>."
 
 class App {
   constructor() {
@@ -24,7 +26,7 @@ class App {
   }
 
   loadOrgs(onLoad) {
-    sheet.load(1, rows => {
+    sheet.load(SPREADSHEET_ID, 1, rows => {
       this.orgs = _.chain(rows).map((row, i) => {
         var obj = sheet.parseRow(row);
 
@@ -73,7 +75,7 @@ class App {
   }
 
   loadCategories() {
-    sheet.load(2, rows => {
+    sheet.load(SPREADSHEET_ID, 2, rows => {
       this.categories = _.map(rows, row => {
         var cat = sheet.parseRow(row).category;
         $('.filters-categories').append(
@@ -84,7 +86,7 @@ class App {
   }
 
   loadSubCategories() {
-    sheet.load(3, rows => {
+    sheet.load(SPREADSHEET_ID, 3, rows => {
       this.categories = _.map(rows, row => {
         var cat = sheet.parseRow(row)['sub-category'];
         $('.filters-subcategories').append(
@@ -95,7 +97,7 @@ class App {
   }
 
   loadServices() {
-    sheet.load(4, rows => {
+    sheet.load(SPREADSHEET_ID, 4, rows => {
       this.services = _.map(rows, row => {
         var service = sheet.parseRow(row).service;
         $('.filters-services').append(
@@ -216,7 +218,7 @@ class App {
       }
       $('.results > ul').html(html.join(''));
     } else {
-      $('.results > ul').html('<h1 class="no-results">No results</h1>');
+      $('.results > ul').html(`<h1 class="no-results">${NO_RESULTS_COPY}</h1>`);
     }
     this.updateAvailableFilters(results);
   }

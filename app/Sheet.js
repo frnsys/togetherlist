@@ -1,11 +1,10 @@
 import $ from 'jquery';
 import _ from 'underscore';
 
-const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
 
 const spreadsheet = {
-  load: function(num, onLoad) {
-    var url = `https://spreadsheets.google.com/feeds/list/${SPREADSHEET_ID}/${num}/public/full?alt=json`;
+  load: function(id, num, onLoad) {
+    var url = `https://spreadsheets.google.com/feeds/list/${id}/${num}/public/full?alt=json`;
     $.ajax({
       url: url,
       success: data => onLoad(data.feed.entry)

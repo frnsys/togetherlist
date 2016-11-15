@@ -3,12 +3,14 @@ import _ from 'underscore';
 import util from './app/Util';
 import sheet from './app/Sheet';
 
+const SPREADSHEET_ID = '1ZbpkjdrrAH95xHWKxjp-bb6nvoKZIZLhXrDwBREa_PA';
+
 function renderQuestion(f) {
   return _.map(util.trim(f.question).split('\n'), line => `${line}<br />`).join('');
 }
 
 // setup faq
-sheet.load(7, rows => {
+sheet.load(SPREADSHEET_ID, 3, rows => {
   var faq = _.map(rows, row => {
     return sheet.parseRow(row);
   });

@@ -3,8 +3,10 @@ import _ from 'underscore';
 import util from './app/Util';
 import sheet from './app/Sheet';
 
+const SPREADSHEET_ID = '1ZbpkjdrrAH95xHWKxjp-bb6nvoKZIZLhXrDwBREa_PA';
+
 // setup contributors
-sheet.load(5, rows => {
+sheet.load(SPREADSHEET_ID, 1, rows => {
   var core = [],
       nonCore = [];
   _.each(rows, row => {
@@ -35,7 +37,7 @@ sheet.load(5, rows => {
 });
 
 // setup about text
-sheet.load(6, rows => {
+sheet.load(SPREADSHEET_ID, 2, rows => {
   var topText = sheet.parseRow(rows[0]).text,
       introText = sheet.parseRow(rows[1]).text,
       bodyText = sheet.parseRow(rows[2]).text;
