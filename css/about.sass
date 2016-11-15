@@ -1,7 +1,7 @@
 .about-title
   text-align: left
 
-.about-intro, .faq
+.about-intro, .faq, .resources
   display: flex
   border-bottom: 1px solid #d7d7d7
   a, a:visited
@@ -32,7 +32,7 @@
     &:last-of-type
       margin-bottom: 3em
 
-.about-intro, .about-letter, .faq
+.about-intro, .about-letter, .faq, .resources
   padding: 3em 2em
 
 .about-letter
@@ -43,7 +43,7 @@
     color: #555
     line-height: 1.6
 
-.faq
+.faq, .resources
   aside
     li
       font-size: 1.2em
@@ -54,33 +54,36 @@
     color: #aaa
     text-decoration: underline
 
-.faq-questions, .faq-answers
+.faq-questions, .faq-answers, .resources-index, .resources-resources
   font-size: 0.8em
+
+.faq-questions, .resources-index
+  padding-bottom: 2em
+  margin-bottom: 4em
+  border-bottom: 1px solid #d7d7d7
+  li
+    line-height: 1.4
 
 .faq-questions
   li
     margin: 0 0 2em 0
-    line-height: 1.4
-  padding-bottom: 2em
-  margin-bottom: 4em
-  border-bottom: 1px solid #d7d7d7
 
-.faq-answers
+.faq-answers, .resources-resources
   li
     margin: 0 0 6em 0
 
-.faq-answer-question
+.faq-answer-question, .resources-resource
   margin: 0 0 0.5em 0
   display: block
 
-.faq-intro
+.faq-intro, .resources-intro
   margin: 0 0 2em 0
   font-weight: bold
   line-height: 1.6
   color: #555
 
 @media screen and (max-width: 620px)
-  .about-intro, .faq
+  .about-intro, .faq, .resources
     display: block
     article
       padding: 0 0 2em 0
