@@ -13,7 +13,12 @@ function renderQuestion(f) {
 sheet.load(SPREADSHEET_ID, 3, rows => {
   var faq = _.map(rows, row => {
     return sheet.parseRow(row);
-  });
+  }),
+    introHeader = faq[0].introheader,
+    sideColumn = _.map(faq[0].sidecolumn.split('\n'), l => `<li>${l}</li>`);
+
+  $('.faq-intro').html(introHeader);
+  $('.faq-aside').html(sideColumn);
   $('.faq-questions').html(
     _.map(faq, (f, i) => `<li><a href="#q${i}">- ${renderQuestion(f)}</a></li>`).join(''));
 
