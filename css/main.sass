@@ -160,10 +160,11 @@ footer
   color: #fff
   padding: 0.5em 1em
   display: flex
-  position: absolute
+  position: fixed
   bottom: 0
   left: 0
   right: 0
+  z-index: 1
   a, a:visited
     color: #fff
     text-decoration: none
@@ -176,17 +177,16 @@ footer
     margin-right: 0.5em
   .footer-left,
   .footer-right
-    flex: 1
     span, a
       margin: 0 0.5em
   .footer-right
     text-align: right
   .copyright
-    flex: 2
     text-align: center
   .footer-left,
   .footer-right,
   .copyright
+    flex: 1
     line-height: 2.5
 
 .filters-all-content
