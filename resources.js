@@ -6,7 +6,7 @@ import sheet from './app/Sheet';
 const SPREADSHEET_ID = '1ZbpkjdrrAH95xHWKxjp-bb6nvoKZIZLhXrDwBREa_PA';
 
 function renderResource(f) {
-  return _.map(util.trim(f.contentsection).split('\n'), line => `${line}<br />`).join('');
+  return _.map(util.trim(f.contentsection).replace(/[\u201C\u201D]/g, '"').split('\n'), line => `${line}<br />`).join('');
 }
 
 // setup resources
