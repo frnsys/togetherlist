@@ -2,6 +2,7 @@ import _ from 'underscore';
 import util from '../Util';
 import sheet from '../Sheet';
 import Header from '../Header';
+import Footer from '../Footer';
 import React, {Component} from 'react';
 
 const SPREADSHEET_ID = '1ZbpkjdrrAH95xHWKxjp-bb6nvoKZIZLhXrDwBREa_PA';
@@ -54,6 +55,7 @@ class Resources extends Component {
             <ul className="resources-aside" dangerouslySetInnerHTML={{__html: this.state.sideColumn}}></ul>
           </aside>
         </section>
+        <Footer />
       </div>
     );
   }

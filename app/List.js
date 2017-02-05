@@ -5,6 +5,7 @@ import sheet from './Sheet';
 import search from './Search';
 import Result from './Result';
 import Header from './Header';
+import Footer from './Footer';
 import React, {Component} from 'react';
 
 const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
@@ -210,6 +211,7 @@ class List extends Component {
         <section className="results content">
           <ul>{this.renderResults()}</ul>
         </section>
+        <Footer />
       </div>
     );
   }

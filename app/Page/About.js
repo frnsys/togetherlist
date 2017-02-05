@@ -2,6 +2,7 @@ import _ from 'underscore';
 import util from '../Util';
 import sheet from '../Sheet';
 import Header from '../Header';
+import Footer from '../Footer';
 import React, {Component} from 'react';
 
 const SPREADSHEET_ID = '1ZbpkjdrrAH95xHWKxjp-bb6nvoKZIZLhXrDwBREa_PA';
@@ -81,6 +82,7 @@ class About extends Component {
         <section className="content about-letter">
           {this.state.bodyText.split('\n').map((line, i) => <p key={i} dangerouslySetInnerHTML={{__html: line}}></p>)}
         </section>
+        <Footer />
       </div>
     );
   }
