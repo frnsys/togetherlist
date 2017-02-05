@@ -314,14 +314,14 @@ class List extends Component {
                   <button
                     data-flag="deductible"
                     className={_.contains(this.state.filters.flags, 'deductible') ? 'selected' : ''}
-                    onClick={() => this.toggleFilter('deductible', 'flags')}>Tax Deductible</button>
+                    onClick={() => this.toggleFilter('deductible', 'flags')}><i>$</i> Tax Deductible</button>
                   <button
                     data-flag="accredited"
                     className={_.contains(this.state.filters.flags, 'accredited') ? 'selected' : ''}
-                    onClick={() => this.toggleFilter('accredited', 'flags')}>Accredited Business</button>
+                    onClick={() => this.toggleFilter('accredited', 'flags')}><i>AB</i> Accredited Business</button>
                 </div>
                 <div className="filters filters-rating" onClick={this.sortByRating.bind(this)}>
-                  <button className={this.state.filters.sortByRating ? 'selected': ''}>Sort by Charity Navigator Score</button>
+                  <button className={this.state.filters.sortByRating ? 'selected': ''}><i className="fa fa-star"></i> Charity Navigator Score</button>
                 </div>
               </div>
             </div>
