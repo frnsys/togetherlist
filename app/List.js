@@ -11,6 +11,66 @@ import React, {Component} from 'react';
 const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
 const NO_RESULTS_COPY = "Can't find the organization you're looking for? Help grow our Togetherlist database. Please submit using our <a href='https://docs.google.com/forms/d/e/1FAIpQLScS3scl2_LiNyDk0jf1CCPF9qsZlmrlvTWW_ckMlhGeEL0OXw/viewform?c=0&w=1'>Submissions Form</a>."
 
+// http://stackoverflow.com/a/10997390/11236
+function updateURLParameter(param, paramVal) {
+  var newAdditionalURL = '';
+  var tempArray = window.location.href.split('?');
+  var baseURL = tempArray[0];
+  var additionalURL = tempArray[1];
+  var temp = '';
+  if (additionalURL) {
+    tempArray = additionalURL.split('&');
+    for (var i=0; i<tempArray.length; i++){
+      if(tempArray[i].split('=')[0] != param){
+        newAdditionalURL += temp + tempArray[i];
+        temp = '&';
+      }
+    }
+  }
+  var rows_txt = `${temp}${param}${paramVal ? `=${paramVal}` : ''}`;
+  return `${baseURL}?${newAdditionalURL}${rows_txt}`;
+}
+
+function removeURLParameter(param, noVal) {
+  //prefer to use l.search if you have a location/link object
+  var url = window.location.href;
+  var urlparts = url.split('?');
+  if (urlparts.length>=2) {
+    var param = encodeURIComponent(param);
+    var prefix = noVal ? param : param + '=';
+    var pars = urlparts[1].split(/[&;]/g);
+
+    //reverse iteration as may be destructive
+    for (var i = pars.length; i-- > 0;) {
+      //idiom for string.startsWith
+      if (pars[i].lastIndexOf(prefix, 0) !== -1) {
+        pars.splice(i, 1);
+      }
+    }
+
+    url= urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : "");
+    return url;
+  } else {
+    return url;
+  }
+}
+
+function resetURL() {
+  var url = window.location.href;
+  var urlparts = url.split('?');
+  window.history.replaceState('', '', urlparts[0]);
+}
+
+function getParameterByName(name) {
+  var url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 class List extends Component {
   componentWillMount() {
     this.setState({
@@ -22,18 +82,32 @@ class List extends Component {
       showSearchResults: false,
       loading: true
     });
-    this.resetFilters();
+    this.resetFilters(true);
     this.loadOrgs();
     this.loadServices();
     this.loadCategories();
     this.loadSubCategories();
   }
 
-  resetFilters() {
-    this.setState({
-      query: '',
-      results: this.state ? this.state.orgs : [],
-      filters: {
+  resetFilters(preset) {
+    var filters;
+    if (preset) {
+      var flags = getParameterByName('flags'),
+          services = getParameterByName('services'),
+          categories = getParameterByName('categories'),
+          subcategories = getParameterByName('subcategories'),
+          sortByRating = getParameterByName('sortByRating');
+      filters = {
+        flags: flags ? flags.split(',') : [],
+        categories: categories ? categories.split(',') : [],
+        subcategories: subcategories ? subcategories.split(',') : [],
+        services: services ? services.split(',') : [],
+        sortByRating: sortByRating === '',
+        rating: -1,
+        state: false
+      };
+    } else {
+      filters = {
         flags: [],
         rating: -1,
         categories: [],
@@ -41,7 +115,14 @@ class List extends Component {
         services: [],
         state: false,
         sortByRating: false
-      }
+      };
+      resetURL();
+    }
+
+    this.setState({
+      query: '',
+      results: this.state ? this.state.orgs : [],
+      filters: filters
     });
   }
 
@@ -140,6 +221,9 @@ class List extends Component {
     this.setState({
       filters: filters
     });
+
+    var url = filters[type].length === 0 ? removeURLParameter(type) : updateURLParameter(type, filters[type]);
+    window.history.replaceState('', '', url);
   }
 
   sortByRating() {
@@ -148,6 +232,9 @@ class List extends Component {
     this.setState({
       filters: filters
     });
+
+    var url = filters.sortByRating ? updateURLParameter('sortByRating') : removeURLParameter('sortByRating', true);
+    window.history.replaceState('', '', url);
   }
 
   search(query) {
@@ -169,13 +256,23 @@ class List extends Component {
       <div>
         <h1 className="title">Stand Together, Work Together</h1>
         <div className="search-wrapper" onMouseLeave={() => this.setState({showSearchResults: false})}>
-          <input type="text" name="search" className="search-input" placeholder="Search for an organization by name, city, interest or action" aria-label="Search" onKeyUp={(ev) => this.search(ev.target.value)}/>
+          <input
+            type="text"
+            name="search"
+            className="search-input"
+            placeholder="Search for an organization by name, city, interest or action"
+            aria-label="Search"
+            onKeyUp={(ev) => this.search(ev.target.value)}/>
           <ul className="search-dropdown" style={{display: this.state.showSearchResults ? 'block' : 'none'}}>
             {this.state.results.slice(0, 5).map((res, i) => <li key={i} data-name={res.name} onClick={() => this.search(res.name)}>{res.name}</li>)}
           </ul>
         </div>
         <div className="filters filters-categories">
-          {this.state.categories.map((cat, i) => <button key={i} data-category={cat} onClick={() => this.toggleFilter(cat, 'categories')}>{cat}</button>)}
+          {this.state.categories.map((cat, i) => <button
+            key={i}
+            className={_.contains(this.state.filters.categories, cat) ? 'selected' : ''}
+            data-category={cat}
+            onClick={() => this.toggleFilter(cat, 'categories')}>{cat}</button>)}
         </div>
       </div>
     );
@@ -187,16 +284,26 @@ class List extends Component {
           <div className="content">
             <div className="filters-controls">
               <button className="toggle-filters" onClick={this.toggleFilterControls.bind(this)}><i className="fa fa-sliders"></i> Filters</button>
-              <button className="clear-filters" onClick={this.resetFilters.bind(this)}><i className="fa fa-times"></i> Clear</button>
+              <button className="clear-filters" onClick={() => this.resetFilters(false)}><i className="fa fa-times"></i> Clear</button>
             </div>
             <div className="filters-all-content" style={{display: this.state.showFilters ? 'block': 'none'}}>
               <div className="filters filters-subcategories">
-                {this.state.subCategories.map((cat, i) => <button key={i} data-subcategory={cat} onClick={() => this.toggleFilter(cat, 'subcategories')}>{cat}</button>)}
+                {this.state.subCategories.map((cat, i) => <button
+                  key={i}
+                  className={_.contains(this.state.filters.subcategories, cat) ? 'selected' : ''}
+                  data-subcategory={cat}
+                  onClick={() => this.toggleFilter(cat, 'subcategories')}>{cat}</button>)}
               </div>
               <div className="filters-group">
                 <div className="filters filters-flags">
-                  <button data-flag="deductible" onClick={() => this.toggleFilter('deductible', 'flags')}>Tax Deductible</button>
-                  <button data-flag="accredited" onClick={() => this.toggleFilter('accredited', 'flags')}>Accredited Business</button>
+                  <button
+                    data-flag="deductible"
+                    className={_.contains(this.state.filters.flags, 'deductible') ? 'selected' : ''}
+                    onClick={() => this.toggleFilter('deductible', 'flags')}>Tax Deductible</button>
+                  <button
+                    data-flag="accredited"
+                    className={_.contains(this.state.filters.flags, 'accredited') ? 'selected' : ''}
+                    onClick={() => this.toggleFilter('accredited', 'flags')}>Accredited Business</button>
                 </div>
                 <div className="filters filters-rating" onClick={this.sortByRating.bind(this)}>
                   <button className={this.state.filters.sortByRating ? 'selected': ''}>Sort by Charity Navigator Score</button>
