@@ -1,5 +1,6 @@
 $borderSize: 4px
-$resultHeight: 16em
+$resultHeight: 18em
+$rightMargin: 0.35em
 
 .results
   margin: 2em auto 0em auto
@@ -15,6 +16,9 @@ $resultHeight: 16em
   position: relative
   vertical-align: top
   height: $resultHeight
+  margin-right: $rightMargin
+  &:nth-child(3n)
+    margin-right: 0
   a, a:visited
     color: #fff
     &:hover
@@ -25,9 +29,9 @@ $resultHeight: 16em
     padding: 0 0 0.5em 0
     color: $primaryColor
     text-transform: uppercase
-    border-bottom: 1px solid #ddd
-    height: 4.4em
-    line-height: 4.4em
+    border-bottom: 2px solid #cbcbcb
+    height: 4.6em
+    line-height: 3.6em
     hyphens: auto
     span
       display: inline-block
@@ -96,7 +100,7 @@ $resultHeight: 16em
 .result-description
   font-size: 0.8em
   line-height: 1.5
-  color: #777
+  color: $primaryColor
   margin-top: 1.2em
 
 .result-actions
@@ -120,27 +124,36 @@ $resultHeight: 16em
       background: $altSecondaryColor
 
 .result-service
-  font-weight: bold
   text-decoration: underline
 
-.result-meta-info
-  float: left
-  width: 70%
 .result-meta-share
-  font-size: 1.2em
+  font-size: 1.4em
   color: $primaryColor
-  float: right
-  width: 30%
-  text-align: right
-  padding-top: 0.2em
+  padding: 0.2em 0 0.6em 0
+  font-weight: bold
   a, a:visited
     color: $primaryColor
-  i
+  > i, a i
+    width: 2.3em
+    height: 2.3em
+    display: inline-block
     background: #fff
-    padding: 0.45em 0.5em
+    padding: 0.65em 0.1em 0.45em 0.1em
     border-radius: 40em
-    margin-left: 0.5em
+    margin-right: 0.5em
     cursor: pointer
+    text-align: center
+    vertical-align: top
+  .result-meta-icon
+    background: none
+    border: 1px solid #fff
+    color: #fff
+    padding: 0
+    line-height: 2.2em
+    i
+      margin-left: 0.1em
+      font-size: 0.8em
+      margin-top: -0.05em
 
 .no-results, .loading
   text-align: center
@@ -178,11 +191,16 @@ $resultHeight: 16em
 @media screen and (max-width: 990px)
   .result
     width: 49.5%
+    &:nth-child(3n)
+      margin-right: $rightMargin
+    &:nth-child(even)
+      margin-right: 0
   .results
     padding-bottom: 12em
 
 @media screen and (max-width: 690px)
   .result
     width: 100%
+    margin-right: 0 !important
   .results
     padding-bottom: 12em

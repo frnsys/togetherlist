@@ -18,11 +18,15 @@ const util = {
   },
 
   joinAnd: function(arr) {
-    if (arr.length <= 2) {
-      return arr.join(' & ');
+    if (arr.length <= 1) {
+      return arr;
     }
-    var acc = arr.slice(0, arr.length - 1).join(', ');
-    return [acc, arr[arr.length - 1]].join(' & ');
+    var last = arr.pop();
+    var parts = _.flatten(arr.map(item => {
+      return [item, ', '];
+    }));
+    parts.pop();
+    return parts.concat([' & ', last]);
   },
 
   parseBool: function(str) {

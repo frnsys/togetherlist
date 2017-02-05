@@ -1,14 +1,10 @@
 var path = require('path');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: {
-    main: './main',
-    about: './about',
-    faq: './faq',
-    resources: './resources'
-  },
+  entry: './main',
   output: {
-    filename: "[name].bundle.js"
+    filename: 'bundle.js'
   },
   devtool: 'source-map',
   module: {
@@ -18,17 +14,12 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/,
         query: {
-          presets: ['es2015']
+          presets: ['es2015', 'stage-2', 'react']
         }
       },
       {
         test: /\.sass$/,
-        loaders: [
-          'style',
-          'css',
-          'autoprefixer?browsers=last 3 versions',
-          'sass?outputStyle=expanded'
-        ]
+        loader: ExtractTextPlugin.extract('css!sass')
       },
       {
         test: /\.json$/,
@@ -36,8 +27,14 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new ExtractTextPlugin('css/style.css')
+  ],
   resolve: {
     extensions: ['', '.js', '.sass'],
     modulesDirectories: ['node_modules']
+  },
+  devServer: {
+    historyApiFallback: true
   }
 };
