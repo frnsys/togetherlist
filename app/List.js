@@ -324,6 +324,9 @@ class List extends Component {
                   <button className={this.state.filters.sortByRating ? 'selected': ''}><i className="fa fa-star"></i> Charity Navigator Score</button>
                 </div>
               </div>
+            <div className="collapse-filters" onClick={this.toggleFilterControls.bind(this)}>
+              <i className="fa fa-caret-up" />
+            </div>
             </div>
           </div>
         </section>
