@@ -12,8 +12,8 @@ class About extends Component {
       topText: '',
       introText: '',
       bodyText: '',
-      core: '',
-      nonCore: ''
+      core: [],
+      nonCore: []
     });
 
     // setup about text
@@ -43,26 +43,20 @@ class About extends Component {
       });
 
       this.setState({
-        core: util.joinAnd(_.map(core, c => {
-          if (c.url) {
-            return `<a href="${c.url}" target="_blank">${c.name}</a>`;
-          } else {
-            return c.name;
-          }
-        })),
-        nonCore: util.joinAnd(_.map(nonCore, c => {
-          if (c.url) {
-            return `<a href="${c.url}" target="_blank">${c.name}</a>`;
-          } else {
-            return c.name;
-          }
-        }))
+        core: core,
+        nonCore: nonCore
       });
     });
   }
 
   render() {
     var header = <h1 className="title about-title">About togetherlist</h1>;
+    var core = util.joinAnd(this.state.core.map((c, i) => {
+      return c.url ? <a key={i} href={c.url} target="_blank">{c.name}</a> : c.name;
+    }));
+    var nonCore = util.joinAnd(this.state.nonCore.map((c, i) => {
+      return c.url ? <a key={i} href={c.url} target="_blank">{c.name}</a> : c.name;
+    }));
     return (
       <div>
         <Header content={header} />
@@ -79,12 +73,8 @@ class About extends Component {
           </article>
           <aside>
             <p><b>The Togetherlist Project</b> is a collaborative initiative with outstanding efforts of contributors and volunteers.</p>
-            <p className="contributors-core"><b>Core</b><br/>
-              <span dangerouslySetInnerHTML={{__html: this.state.core}} />
-            </p>
-            <p className="contributors-more"><b>Contributors & Volunteers</b><br/>
-              <span dangerouslySetInnerHTML={{__html: this.state.nonCore}} />
-            </p>
+            <p className="contributors-core"><b>Core</b><br/>{core}</p>
+            <p className="contributors-more"><b>Contributors & Volunteers</b><br/>{nonCore}</p>
             <p><b>Interested in joining us?</b><br />Please let us know <a href="https://goo.gl/forms/4IWT4csOb6MgtyVf1">here</a>.</p>
           </aside>
         </section>
