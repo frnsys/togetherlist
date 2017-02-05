@@ -1,5 +1,6 @@
 @import reset
 @import fonts
+@import select.css
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700')
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
 
@@ -223,10 +224,6 @@ footer
     &:hover
       background: #ddd
 
-.filters-state
-  margin: 1em 0
-  text-align: center
-
 .filters-limit
   float: right
   margin-right: 1em
@@ -256,6 +253,34 @@ footer
 .filters button:hover i,
 .filters .selected i
   border-color: #fff
+
+.filters-state
+  flex: 0.8 !important
+  padding: 0.7em 0.4em 1em 0.4em
+  font-size: 0.8em
+  text-align: center
+  cursor: pointer
+  background: #fff
+  color: #343434
+  display: inline-block
+
+  // bleh
+  height: 4.1em
+  margin-top: 0.6em
+
+  .Select
+    width: 70%
+    display: inline-block
+    vertical-align: middle
+    margin-left: 4%
+  .Select-control
+    border: none
+    border-radius: 0
+    border-bottom: 1px solid #343434
+  .Select-arrow
+    border-color: #343434 transparent transparent
+  .Select-clear-zone
+    display: none
 
 .collapse-filters
   text-align: center

@@ -6,10 +6,69 @@ import search from './Search';
 import Result from './Result';
 import Header from './Header';
 import Footer from './Footer';
+import Select from 'react-select';
 import React, {Component} from 'react';
 
 const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
 const NO_RESULTS_COPY = "Can't find the organization you're looking for? Help grow our Togetherlist database. Please submit using our <a href='https://docs.google.com/forms/d/e/1FAIpQLScS3scl2_LiNyDk0jf1CCPF9qsZlmrlvTWW_ckMlhGeEL0OXw/viewform?c=0&w=1'>Submissions Form</a>."
+const STATES = [
+  'All',
+  'Alabama',
+  'Alaska',
+  'Arizona',
+  'Arkansas',
+  'California',
+  'Colorado',
+  'Connecticut',
+  'Delaware',
+  'Florida',
+  'Georgia',
+  'Hawaii',
+  'Idaho',
+  'Illinois',
+  'Indiana',
+  'Iowa',
+  'Kansas',
+  'Kentucky',
+  'Louisiana',
+  'Maine',
+  'Maryland',
+  'Massachusetts',
+  'Michigan',
+  'Minnesota',
+  'Mississippi',
+  'Missouri',
+  'Montana',
+  'Nebraska',
+  'Nevada',
+  'New Hampshire',
+  'New Jersey',
+  'New Mexico',
+  'New York',
+  'North Carolina',
+  'North Dakota',
+  'Ohio',
+  'Oklahoma',
+  'Oregon',
+  'Pennsylvania',
+  'Rhode Island',
+  'South Carolina',
+  'South Dakota',
+  'Tennessee',
+  'Texas',
+  'Utah',
+  'Vermont',
+  'Virginia',
+  'Washington',
+  'West Virginia',
+  'Wisconsin',
+  'Wyoming'
+].map(state => {
+  return {
+    value: state,
+    label: state
+  }
+});
 
 // http://stackoverflow.com/a/10997390/11236
 function updateURLParameter(param, paramVal) {
@@ -96,7 +155,8 @@ class List extends Component {
           services = getParameterByName('services'),
           categories = getParameterByName('categories'),
           subcategories = getParameterByName('subcategories'),
-          sortByRating = getParameterByName('sortByRating');
+          sortByRating = getParameterByName('sortByRating'),
+          state = getParameterByName('state');
       filters = {
         flags: flags ? flags.split(',') : [],
         categories: categories ? categories.split(',') : [],
@@ -104,7 +164,7 @@ class List extends Component {
         services: services ? services.split(',') : [],
         sortByRating: sortByRating === '',
         rating: -1,
-        state: false
+        state: state || 'All'
       };
     } else {
       filters = {
@@ -113,7 +173,7 @@ class List extends Component {
         categories: [],
         subcategories: [],
         services: [],
-        state: false,
+        state: 'All',
         sortByRating: false
       };
       resetURL();
@@ -251,6 +311,16 @@ class List extends Component {
     });
   }
 
+  selectState(val) {
+    var state = val.value,
+        filters = this.state.filters;
+    filters.state = state;
+    this.setState({filters: filters});
+
+    var url = state === 'All' ? removeURLParameter('state') : updateURLParameter('state', state);
+    window.history.replaceState('', '', url);
+  }
+
   render() {
     var header = (
       <div>
@@ -310,6 +380,17 @@ class List extends Component {
                   onClick={() => this.toggleFilter(service, 'services')}>{util.slugify(service)}</button>)}
               </div>
               <div className="filters-group">
+                <div className="filters filters-state">
+                  <div>
+                    Location
+                    <Select
+                        name="state"
+                        value={this.state.filters.state}
+                        options={STATES}
+                        onChange={this.selectState.bind(this)}
+                    />
+                  </div>
+                </div>
                 <div className="filters filters-flags">
                   <button
                     data-flag="deductible"

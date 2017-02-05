@@ -29,7 +29,7 @@ const search = {
         _.every(filters.subcategories, cat => _.contains(item.subcategories, cat)) &&
         _.every(filters.services, service => _.contains(item.services, service)) &&
         _.every(filters.flags, flag => item[flag]) &&
-        (!filters.state || item.state == filters.state);
+        (filters.state === 'All' || item.state == filters.state);
     }).sortBy((item, i) => {
       return filters.sortByRating ? item.rating * -1 : i;
     }).value();
