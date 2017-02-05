@@ -199,6 +199,7 @@ footer
   button, button:hover
     color: #fff
     background: none
+  button
     margin: 0
 
 .toggle-filters
@@ -224,6 +225,17 @@ footer
 .filters-state
   margin: 1em 0
   text-align: center
+
+.filters-limit
+  float: right
+  margin-right: 1em
+  button
+    margin-right: 1em
+    cursor: pointer
+    border-bottom: 2px solid transparent
+    &.selected
+      background: none
+      border-bottom: 2px solid #fff
 
 @media screen and (max-width: 490px)
   .header-bar

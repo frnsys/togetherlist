@@ -285,14 +285,29 @@ class List extends Component {
             <div className="filters-controls">
               <button className="toggle-filters" onClick={this.toggleFilterControls.bind(this)}><i className="fa fa-sliders"></i> Filters</button>
               <button className="clear-filters" onClick={() => this.resetFilters(false)}><i className="fa fa-times"></i> Clear</button>
+              <div className="filters-limit">
+                <button
+                  className={_.contains(this.state.filters.services, 'donations') ? 'selected' : ''}
+                  onClick={() => this.toggleFilter('donations', 'services')}>Donations Only</button>
+                <button
+                  className={_.contains(this.state.filters.services, 'volunteers') ? 'selected' : ''}
+                  onClick={() => this.toggleFilter('volunteers', 'services')}>Volunteer Only</button>
+              </div>
             </div>
             <div className="filters-all-content" style={{display: this.state.showFilters ? 'block': 'none'}}>
               <div className="filters filters-subcategories">
                 {this.state.subCategories.map((cat, i) => <button
                   key={i}
-                  className={_.contains(this.state.filters.subcategories, cat) ? 'selected' : ''}
                   data-subcategory={cat}
+                  className={_.contains(this.state.filters.subcategories, cat) ? 'selected' : ''}
                   onClick={() => this.toggleFilter(cat, 'subcategories')}>{cat}</button>)}
+              </div>
+              <div className="filters filters-services">
+                {this.state.services.map((service, i) => <button
+                  key={i}
+                  data-service={service}
+                  className={_.contains(this.state.filters.services, service) ? 'selected' : ''}
+                  onClick={() => this.toggleFilter(service, 'services')}>{util.slugify(service)}</button>)}
               </div>
               <div className="filters-group">
                 <div className="filters filters-flags">
@@ -308,9 +323,6 @@ class List extends Component {
                 <div className="filters filters-rating" onClick={this.sortByRating.bind(this)}>
                   <button className={this.state.filters.sortByRating ? 'selected': ''}>Sort by Charity Navigator Score</button>
                 </div>
-              </div>
-              <div className="filters filters-services">
-                {this.state.services.map((service, i) => <button key={i} data-service={service} onClick={() => this.toggleFilter(service, 'services')}>{util.slugify(service)}</button>)}
               </div>
             </div>
           </div>
