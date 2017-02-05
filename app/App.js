@@ -10,15 +10,13 @@ const NotFound = () => <h1>404.. This page is not found!</h1>;
 class App extends Component {
   render() {
     return (
-      <main>
-        <Router history={browserHistory}>
-          <Route path='/' component={List} />
-          <Route path='/about' component={About} />
-          <Route path='/faq' component={FAQ} />
-          <Route path='/resources' component={Resources} />
-          <Route path='*' component={NotFound} />
-        </Router>
-      </main>
+      <Router history={browserHistory}>
+        <Route path='/' component={List} />
+        <Route path='/about' component={About} />
+        <Route path='/faq' component={FAQ} />
+        <Route path='/resources' component={Resources} />
+        <Route path='*' component={NotFound} />
+      </Router>
     )
   }
 }
