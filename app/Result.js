@@ -44,14 +44,23 @@ class Result extends Component {
   }
 
   render() {
-    var needs = util.joinAnd(this.props.services.map((s, i) => <span key={i} className="result-service">{s.toLowerCase().replace('esl', 'ESL')}</span>));
+    var needs = this.props.services.map((s, i) => <span key={i} className="result-service">{s.toLowerCase().replace('esl', 'ESL')}</span>);
+    needs = _.flatten(needs.map(item => {
+      return [item, ', '];
+    }));
+    needs.pop(); // get rid of last comma
+    if (this.props.services.length > 1) {
+      if (this.props.services[0] === 'donations') {
+        needs[1] = ' & ';
+      }
+    }
     return <li className="result" onMouseLeave={() => this.setState({showSharing: false})}>
         <div className="result-preview">
           <h2><span>{util.truncate(this.props.name, 30)}</span></h2>
           <p className="result-description">{util.truncate(this.props.description, 132)}</p>
         </div>
         <div className="result-info">
-          <h3><a href={this.props.website ? this.props.website : '#'} target="_blank">{this.props.name}</a> welcomes {needs}{this.props.additionalServices.length > 0 ? ' help' : ''}.</h3>
+          <h3><a href={this.props.website ? this.props.website : '#'} target="_blank">{this.props.name}</a> needs {needs}{this.props.additionalServices.length > 0 ? ' volunteers' : ''}.</h3>
             <div className="result-meta">
               <div className="result-meta-share">
                 {this.props.number ? <a href={`tel:${this.props.number}`}><i className="fa fa-phone" title="Call" data-tip="Call"></i></a> : ''}

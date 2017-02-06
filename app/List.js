@@ -237,7 +237,9 @@ class List extends Component {
         obj.number = util.parseNumber(obj.numbers);
         obj.services = [];
         if (obj.donatelink) obj.services.push('donations');
-        if (obj.volunteerlink) obj.services.push('volunteers');
+        if (obj.additionalServices.length === 0 && obj.volunteerlink) {
+          obj.services.push('volunteers');
+        }
         obj.services = obj.services.concat(obj.additionalServices);
 
         // console.log(obj); // debug
@@ -364,7 +366,14 @@ class List extends Component {
             </div>
             <div className="filters-all-content" style={{display: this.state.showFilters ? 'block': 'none'}}>
               <div className="filters filters-subcategories">
-                {this.state.subCategories.map((cat, i) => <button
+                {this.state.subCategories.slice(0, 5).map((cat, i) => <button
+                  key={i}
+                  data-subcategory={cat}
+                  className={_.contains(this.state.filters.subcategories, cat) ? 'selected' : ''}
+                  onClick={() => this.toggleFilter(cat, 'subcategories')}>{cat}</button>)}
+              </div>
+              <div className="filters filters-subcategories">
+                {this.state.subCategories.slice(5).map((cat, i) => <button
                   key={i}
                   data-subcategory={cat}
                   className={_.contains(this.state.filters.subcategories, cat) ? 'selected' : ''}
