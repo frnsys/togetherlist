@@ -7,6 +7,7 @@ import Result from './Result';
 import Header from './Header';
 import Footer from './Footer';
 import Select from 'react-select';
+import ReactTooltip from 'react-tooltip';
 import React, {Component} from 'react';
 
 const SPREADSHEET_ID = '1kq6z9cEeqqGL5R5mdclkj5HjD-w9dvL8xCYmhG1UziQ';
@@ -146,6 +147,10 @@ class List extends Component {
     this.loadServices();
     this.loadCategories();
     this.loadSubCategories();
+  }
+
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
   }
 
   resetFilters(preset) {
@@ -349,6 +354,7 @@ class List extends Component {
 
     return (
       <div>
+        <ReactTooltip />
         <Header content={header} />
         <section className="filters-all">
           <div className="content">

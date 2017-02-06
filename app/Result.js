@@ -54,11 +54,24 @@ class Result extends Component {
           <h3><a href={this.props.website ? this.props.website : '#'} target="_blank">{this.props.name}</a> welcomes {needs}{this.props.additionalServices.length > 0 ? ' help' : ''}.</h3>
             <div className="result-meta">
               <div className="result-meta-share">
-                {this.props.number ? <a href={`tel:${this.props.number}`}><i className="fa fa-phone"></i></a> : ''}
-                <i className="fa fa-share-alt action-share" data-id="{this.props.id}" onClick={() => this.setState({showSharing:true})}></i>
-                {this.props.deductible ? <i className="result-meta-icon" title="Tax Deductible">$</i> : ''}
-                {this.props.accredited ? <i className="result-meta-icon" title="Accredited">AB</i> : ''}
-                {this.props.rating >= 0 ? <i className="result-meta-icon" title="Charity Navigator Rating">{this.props.rating}<i className="fa fa-star"></i></i> : ''}
+                {this.props.number ? <a href={`tel:${this.props.number}`}><i className="fa fa-phone" title="Call" data-tip="Call"></i></a> : ''}
+                <i className="fa fa-share-alt action-share"
+                  title="Share"
+                  data-tip="Share"
+                  data-id="{this.props.id}"
+                  onClick={() => this.setState({showSharing:true})}></i>
+                {this.props.deductible ? <i
+                  className="result-meta-icon"
+                  title="Tax Deductible"
+                  data-tip="Tax Deductible">$</i> : ''}
+                {this.props.accredited ? <i
+                  className="result-meta-icon"
+                  title="Accredited Business"
+                  data-tip="Accredited Business">AB</i> : ''}
+                {this.props.rating >= 0 ? <i
+                  className="result-meta-icon"
+                  title="Charity Navigator Score"
+                  data-tip="Charity Navigator Score">{this.props.rating}<i className="fa fa-star"></i></i> : ''}
               </div>
               <div className="result-meta-info">
                 {this.props.state ? <h5><span className="result-meta-lead">Based in </span><span className="result-state" data-state={this.props.state}>{this.props.state}</span></h5> : ''}
