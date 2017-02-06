@@ -355,14 +355,6 @@ class List extends Component {
             <div className="filters-controls">
               <button className="toggle-filters" onClick={this.toggleFilterControls.bind(this)}><i className="fa fa-sliders"></i> Filters</button>
               <button className="clear-filters" onClick={() => this.resetFilters(false)}><i className="fa fa-times"></i> Clear</button>
-              <div className="filters-limit">
-                <button
-                  className={_.contains(this.state.filters.services, 'donations') ? 'selected' : ''}
-                  onClick={() => this.toggleFilter('donations', 'services')}>Donations Only</button>
-                <button
-                  className={_.contains(this.state.filters.services, 'volunteers') ? 'selected' : ''}
-                  onClick={() => this.toggleFilter('volunteers', 'services')}>Volunteer Only</button>
-              </div>
             </div>
             <div className="filters-all-content" style={{display: this.state.showFilters ? 'block': 'none'}}>
               <div className="filters filters-subcategories">
